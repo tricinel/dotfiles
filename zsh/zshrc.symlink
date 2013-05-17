@@ -65,4 +65,4 @@ done
 unset config_files
 
 # init z   https://github.com/rupa/z
-. ~/.term/z/z.sh
+. ~/.code/z/z.sh
