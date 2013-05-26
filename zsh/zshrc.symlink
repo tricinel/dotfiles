@@ -66,3 +66,5 @@ unset config_files
 
 # init z   https://github.com/rupa/z
 . ~/.code/z/z.sh
+PATH=$PATH:$HOME/.rvm/bin # Add RVM to PATH for scripting
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
