@@ -5,7 +5,3 @@ function gco {
     git checkout $*
   fi
 }
-
-function gc {
-  git commit -m "$@"
-}
