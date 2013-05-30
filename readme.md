@@ -18,8 +18,6 @@ This will do a couple of things:
 
 * Symlink the appropriate files in ``.dotfiles`` to your home directory. Everything is configured and tweaked within ``~/.dotfiles``.
 
-``zsh/zshrc.symlink`` is where you'll need to make your modifications, as some paths might differ on your system.
-
 ## Overview of files
 
 * ``git/`` will give you some neat aliases and functions to use with git.
