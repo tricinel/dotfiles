@@ -1,4 +1,6 @@
 # bootstrap installs things.
+# inspired from the awesome and amazing @holman
+# https://github.com/holman/dotfiles/blob/master/script/bootstrap
 
 # https://github.com/rupa/z
 # z, oh how i love you
