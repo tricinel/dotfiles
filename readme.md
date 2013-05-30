@@ -9,7 +9,7 @@ Just run this
 ```shell
 git clone https://github.com/tricinel/dotfiles.git ~/.dotfiles
 cd ~/.dotfiles
-script/bootstrap
+script/bootstrap.sh
 ```
 
 This will do a couple of things:
