@@ -18,6 +18,11 @@ function f() {
     find . -name "$1"
 }
 
+# Create a new directory and enter it
+function mkd() {
+  mkdir -p "$@" && cd "$@"
+}
+
 # Find string in files of type
 # Takes two parameters -> $1:the file type (eg. *.txt or readme.txt); $2: the string (eg. string)
 function fgrep() {
@@ -90,4 +95,29 @@ function ram() {
       echo "There are no processes with pattern '${fg[blue]}${app}${reset_color}' are running."
     fi
   fi
+}
+
+# Count code lines in some directory.
+# $ loc py js css
+# # => Lines of code for .py: 3781
+# # => Lines of code for .js: 3354
+# # => Lines of code for .css: 2970
+# # => Total lines of code: 10105
+function loc() {
+  local total
+  local firstletter
+  local ext
+  local lines
+  total=0
+  for ext in $@; do
+    firstletter=$(echo $ext | cut -c1-1)
+    if [[ firstletter != "." ]]; then
+      ext=".$ext"
+    fi
+    lines=`find-exec "*$ext" cat | wc -l`
+    lines=${lines// /}
+    total=$(($total + $lines))
+    echo "Lines of code for ${fg[blue]}$ext${reset_color}: ${fg[green]}$lines${reset_color}"
+  done
+  echo "${fg[blue]}Total${reset_color} lines of code: ${fg[green]}$total${reset_color}"
 }
