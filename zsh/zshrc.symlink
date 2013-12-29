@@ -41,6 +41,9 @@ plugins=(git git-flow last-working-dir npm osx rvm)
 
 source $ZSH/oh-my-zsh.sh
 
+# Add nvm
+source ~/.nvm/nvm.sh
+
 # Customize to your needs...
 
 # shortcut to this dotfiles path is $DOTFILES
