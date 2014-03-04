@@ -7,10 +7,10 @@ alias undopush="git push -f origin HEAD^:master"
 alias glog="git log --graph --pretty=format:'%Cred%h%Creset %C(cyan)%an%Creset - %C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
 
 # List commits showing changed files
-alias gll="git log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat"
+alias gll='git log --pretty=format:"%C(yellow)%h%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --numstat'
 
 # List all the deleted files in the working tree
-alias gdel="git ls-files --deleted"
+alias gdel='git ls-files --deleted'
 
 # Display a summary of all deleted files including paths
 alias gdelpath="git log --diff-filter=D --summary"
@@ -23,9 +23,6 @@ alias gbnm='git branch --no-merged master'
 
 # List all the commits related to a file, with the diff of the changes
 alias gfl="git log -u"
-
-# Find a file path in codebase
-alias gff="git !git ls-files | grep -i"
 
 # These should be self-explanatory
 alias gf='git flow'
@@ -46,6 +43,3 @@ alias git-undo='git reset --soft HEAD^' # Undo your last commit, but don't throw
 # Stolen from @holman
 # https://github.com/holman/dotfiles/blob/master/bin/git-amend
 alias git-ammend='git commit --amend -C HEAD'
-
-# List all git aliases
-alias gla='git !git config -l | grep alias | cut -c 7-'
