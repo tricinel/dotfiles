@@ -9,3 +9,6 @@ function gi() {
 
 # Gem install with --no-ri --no-rdoc
 alias gin='gem install --no-ri --no-rdoc'
+
+# Scaffold a new MEAN app using yeoman and generator-angular-fullstack
+alias mean='yo angular-fullstack'
