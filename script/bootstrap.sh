@@ -2,13 +2,6 @@
 # inspired from the awesome and amazing @holman
 # https://github.com/holman/dotfiles/blob/master/script/bootstrap
 
-# https://github.com/rupa/z
-# z, oh how i love you
-mkdir -p ~/.code/z
-curl https://raw.github.com/rupa/z/master/z.sh > ~/.code/z/z.sh
-chmod +x ~/.code/z/z.sh
-# also consider moving over your current .z file if possible. it's painful to rebuild :)
-
 # https://github.com/robbyrussell/oh-my-zsh
 # install oh-my-zsh
 git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
