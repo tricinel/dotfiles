@@ -37,7 +37,7 @@ COMPLETION_WAITING_DOTS="true"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git git-flow last-working-dir npm osx rvm vagrant)
+plugins=(git git-flow osx rvm bower git-extras git-prompt virtualenv z)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -68,12 +68,6 @@ done
 
 unset config_files
 
-# init z   https://github.com/rupa/z
-. ~/.code/z/z.sh
-
 PATH=$PATH:$HOME/.rvm/bin
 # Add RVM to PATH for scripting
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
-
-# Set VAGRANT_HOME variable to external drive
-export VAGRANT_HOME="/Volumes/Storage/vagrant_home"
