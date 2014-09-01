@@ -6,6 +6,9 @@ alias undopush="git push -f origin HEAD^:master"
 # Pretty 'git log'
 alias glog="git log --graph --pretty=format:'%Cred%h%Creset %C(cyan)%an%Creset - %C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
 
+# Pretty 'git log' but shorter
+alias glg="git log --graph --pretty=format:'%C(yellow)%d%Creset %s [%C(cyan)%an%Creset]' --abbrev-commit"
+
 # List commits showing changed files
 alias gll='git log --stat --format=oneline --abbrev-commit --decorate'
 
