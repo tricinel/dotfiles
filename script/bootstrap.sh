@@ -6,7 +6,8 @@
 # install oh-my-zsh
 git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 
-DOTFILES_ROOT="`pwd`"
+cd "$(dirname "$0")/.."
+DOTFILES_ROOT=$(pwd)
 set -e
 
 echo ''
