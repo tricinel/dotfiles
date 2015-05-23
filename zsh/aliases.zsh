@@ -100,3 +100,8 @@ alias badge="tput bel"
 # Kill all the tabs in Chrome to free up memory
 # [C] explained: http://www.commandlinefu.com/commands/view/402/exclude-grep-from-your-grepped-output-of-ps-alias-included-in-description
 alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
+
+# Magnificent app which corrects your previous console command
+# You need thefuck installed
+# https://github.com/nvbn/thefuck
+alias fuck='eval $(thefuck $(fc -ln -1 | tail -n 1)); fc -R'
