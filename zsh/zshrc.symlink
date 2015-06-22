@@ -41,9 +41,6 @@ plugins=(git git-flow osx rvm bower git-extras git-prompt z docker)
 
 source $ZSH/oh-my-zsh.sh
 
-# Add nvm
-source ~/.nvm/nvm.sh
-
 # Customize to your needs...
 
 # shortcut to this dotfiles path is $DOTFILES
@@ -67,10 +64,3 @@ do
 done
 
 unset config_files
-
-PATH=$PATH:$HOME/.rvm/bin
-# Add RVM to PATH for scripting
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
-
-export LC_ALL=en_US.UTF-8
-export LANG=en_US.UTF-8
