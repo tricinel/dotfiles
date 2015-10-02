@@ -83,7 +83,7 @@ alias sudo='sudo '
 # https://github.com/mathiasbynens/dotfiles/blob/master/.aliases
 alias badge="tput bel"
 
-alias reload='. ~/.zshrc'
+alias reload='. ~/.zshrc && . ~/.zshenv'
 
 # CHOWN your /usr/local directory
 alias sown="sudo chown -R $USER /usr/local"
