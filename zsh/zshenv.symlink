@@ -1,7 +1,8 @@
 # Add nvm
 source ~/.nvm/nvm.sh
 
-PATH=$PATH:/usr/local/bin
+PATH=$PATH:/usr/local/bin:$HOME/.rvm/bin
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && . "$HOME/.rvm/scripts/rvm"
 
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
