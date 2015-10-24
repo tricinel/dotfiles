@@ -105,3 +105,6 @@ alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v exten
 # You need thefuck installed
 # https://github.com/nvbn/thefuck
 alias fuck='eval $(thefuck $(fc -ln -1 | tail -n 1)); fc -R'
+
+# Repair File Permissions
+alias repair="sudo diskutil repairPermissions /"
