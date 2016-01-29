@@ -108,3 +108,6 @@ alias fuck='eval $(thefuck $(fc -ln -1 | tail -n 1)); fc -R'
 
 # Repair File Permissions
 alias repair="sudo diskutil repairPermissions /"
+
+# Concat ssh config files into one
+alias ssh-concat="echo -n > ~/.ssh/config && cat ~/.ssh/configs/* > ~/.ssh/config"
