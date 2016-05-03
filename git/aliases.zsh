@@ -45,7 +45,7 @@ alias git-undo='git reset --soft HEAD^' # Undo your last commit, but don't throw
 # Use the last commit message and amend your stuff.
 # Stolen from @holman
 # https://github.com/holman/dotfiles/blob/master/bin/git-amend
-alias git-ammend='git commit --amend -C HEAD'
+alias git-amend='git commit --amend -C HEAD'
 
 # Add untracked, remove deleted, and show status
 alias gad='git add -A && gs'
