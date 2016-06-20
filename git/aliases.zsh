@@ -24,8 +24,20 @@ alias gcshow='git show --pretty="format:" --name-only'
 # List branches with commits not merged into master
 alias gbnm='git branch --no-merged master'
 
+# List branches that are already merged into master
+alias gbm='git branch --merged master'
+
+# Remove branches that have already been merged into master
+alias gbm-remove='git branch --merged master | grep -v '^\*' | xargs -n 1 git branch -d'
+
+# Quickly switch to the previous branch
+alias gco-='git checkout -'
+
 # List all the commits related to a file, with the diff of the changes
-alias gfl="git log -u"
+alias gfl='git log -u'
+
+# List all conflicted files
+alias gdf='git diff --name-only --diff-filter=U'
 
 # These should be self-explanatory
 alias gf='git flow'
