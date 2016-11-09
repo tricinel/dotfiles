@@ -72,7 +72,7 @@ alias spotoff="sudo mdutil -a -i off"
 alias spoton="sudo mdutil -a -i on"
 
 # Pipe my public key to my clipboard
-alias pubkey="more ~/.ssh/id_dsa.public | pbcopy | echo '=> Public key copied to pasteboard.'"
+alias pubkey="more ~/.ssh/id_rsa.pub | pbcopy | echo '=> Public key copied to pasteboard.'"
 
 # Enable aliases to be sudo’ed
 alias sudo='sudo '
@@ -88,9 +88,9 @@ alias reload='. ~/.zshrc && . ~/.zshenv'
 # CHOWN your /usr/local directory
 alias sown="sudo chown -R $USER /usr/local"
 
-# Get OS X Software Updates, and update installed Ruby gems, Homebrew, npm, and their installed packages
+# Get OS X Software Updates, and update installed Homebrew, npm, and their installed packages
 # From @mathiasbynens
-alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup; npm update npm -g; npm update -g; sudo gem update'
+alias update='sudo softwareupdate -i -a; brew update; brew upgrade; brew cleanup; npm update npm -g; npm update -g;'
 
 # Kill all the tabs in Chrome to free up memory
 # [C] explained: http://www.commandlinefu.com/commands/view/402/exclude-grep-from-your-grepped-output-of-ps-alias-included-in-description

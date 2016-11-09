@@ -15,7 +15,7 @@ function httpcompression() {
 
 # find shorthand
 function f() {
-    find . -name "$1"
+  find . -name "$1"
 }
 
 # Create a new directory and enter it
@@ -46,13 +46,6 @@ function gz() {
   cat "$1" | wc -c
   echo "gzipped size (bytes): "
   gzip -c "$1" | wc -c
-}
-
-# get proportionally reduced height of element, given its original width and height and the new width
-# I use this to get a proportionally reduced size for an image for which I know the height and width
-function ratio() {
-  echo "new height is: $(( $3*$2/$1 ))"
-  echo # newline
 }
 
 # Get the MD5 hash of a string directly in the terminal
