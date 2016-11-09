@@ -6,6 +6,10 @@
 # install oh-my-zsh
 git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
 
+# install Vundle
+mkdir -p ~/.vim/bundle
+git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
 cd "$(dirname "$0")/.."
 DOTFILES_ROOT=$(pwd)
 set -e
@@ -102,7 +106,16 @@ install_dotfiles () {
   done
 }
 
+install_additional() {
+  info 'installing additional files'
+
+  # Vim: copy the color scheme
+  cp $DOTFILES_ROOT/vim/apprentice.vim $HOME/.vim/colors/
+}
+
 install_dotfiles
+
+install_additional
 
 echo ''
 echo '  All installed!'
