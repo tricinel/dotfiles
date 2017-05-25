@@ -9,6 +9,13 @@ alias glog="git log --graph --pretty=format:'%Cred%h%Creset %C(cyan)%an%Creset -
 # Pretty 'git log' but shorter
 alias glg="git log --graph --pretty=format:'%C(yellow)%d%Creset %s [%C(cyan)%an%Creset]' --abbrev-commit"
 
+# Get graph-based logs for all branches showing commit stats (additions, deletions)
+# --decorate will give information about which branch a commit was made on where applicable
+alias ggraph="git log --graph --all --decorate --stat --date=iso"
+
+# Summaries of git log with commit count summary only sorted according to the number of commits per author
+alias gstats="git shortlog -sn"
+
 # List commits showing changed files
 alias gll='git log --stat --format=oneline --abbrev-commit --decorate'
 
