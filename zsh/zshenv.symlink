@@ -1,7 +1,7 @@
 # Add nvm
 source ~/.nvm/nvm.sh
 
-PATH=$PATH:/usr/local/bin
+export PATH="/usr/local/sbin:$HOME/.yarn/bin:/usr/local/bin:$PATH"
 
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
