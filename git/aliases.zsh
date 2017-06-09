@@ -57,7 +57,6 @@ alias gs='git status -sb' # upgrade your git if -sb breaks for you. it's fun.
 alias gi='git init'
 alias ga='git add'
 alias gr='git rm'
-alias gpr='git pull --rebase'
 alias git-snapshot='!git stash save "snapshot: $(date)" && git stash apply "stash@{0}"'
 alias git-undo='git reset --soft HEAD^' # Undo your last commit, but don't throw away your changes
 

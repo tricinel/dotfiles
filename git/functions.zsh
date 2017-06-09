@@ -31,3 +31,10 @@ function gcontains() {
     git branch -a --contains $1
   fi
 }
+
+# Stash the current, then update to the latest, then pop the stash
+function gpr {
+  git stash
+  git pull --rebase
+  git stash pop
+}
