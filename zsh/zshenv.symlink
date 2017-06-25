@@ -1,7 +1,5 @@
-# Add nvm
-source ~/.nvm/nvm.sh
-
-export PATH="/usr/local/sbin:$HOME/.yarn/bin:/usr/local/bin:$PATH"
+export PATH="$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+export PATH="$PATH:'yarn global bin'"
 
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
