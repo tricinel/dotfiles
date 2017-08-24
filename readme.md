@@ -24,7 +24,6 @@ This will do a couple of things:
 * ``script/bootstrap.sh`` will bootstrap your dotfiles. Run this in the beginning.
 * ``zsh/`` will set up some aliases, functions and exports.
 * ``zsh/zshrc.symlink`` is where you'll need to make your modifications, as some paths might differ on your system. The file also sets up the plugins and theme to work with oh-my-zsh.
-* ``dev.zsh`` is just in its infancy. If you're working with the likes of Grunt or Node or NPM, this will (in the future) set up some functions and aliases.
 
 ## Private config
 
