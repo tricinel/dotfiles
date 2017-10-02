@@ -114,3 +114,15 @@ function loc() {
   done
   echo "${fg[blue]}Total${reset_color} lines of code: ${fg[green]}$total${reset_color}"
 }
+
+# List the contents of a directory in a tree-like format
+# using tree from homebrew
+# http://brewformulas.org/Tree
+# This also passes some reasonable defaults
+function lt() {
+  if [ -z "$1" ]; then
+    tree --dirsfirst -I 'bower_components|node_modules'
+  else
+    tree -L $1 --dirsfirst -I 'bower_components|node_modules'
+  fi
+}
