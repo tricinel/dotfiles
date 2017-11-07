@@ -38,3 +38,13 @@ function gpr {
   git pull --rebase
   git stash pop
 }
+
+# Safe merging strategy
+# https://github.com/k88hudson/git-flight-rules#safe-merging-strategy
+function gsafemerge() {
+  if [ -z "$1" ]; then
+    echo "No branch to merge provided."
+  else
+    git merge --no-ff --no-commit $1
+  fi
+}
