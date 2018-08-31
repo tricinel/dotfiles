@@ -35,8 +35,6 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'scrooloose/nerdtree'
 let g:NERDTreeMinimalUI=1
 
-Plugin 'altercation/vim-colors-solarized'
-
 Plugin 'pangloss/vim-javascript'
 
 call vundle#end()
@@ -47,17 +45,15 @@ filetype indent on
 " Enable syntax highlighting
 syntax enable
 
-set background=dark
+" Enable line numbers
+set number
+set guioptions-=r
+set guioptions-=R
+set guioptions-=l
+set guioptions-=L
 
-" Set extra options if running in GUI mode
-if has("gui_running")
-	set guioptions-=T
-	set guioptions+=e
-	set t_Co=256
-	set guitablabel=%-.20f\ %M
-
-	colorscheme colors-solarized
-endif
+" Colorscheme
+colorscheme edgenightsky
 
 " Don't use Ex mode, use Q for formatting
 map Q gq
