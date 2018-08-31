@@ -106,3 +106,11 @@ alias repair="sudo diskutil repairPermissions /"
 
 # Concat ssh config files into one
 alias ssh-concat="echo -n > ~/.ssh/config && cat ~/.ssh/configs/* > ~/.ssh/config"
+
+# Nicer disk space using ncdu
+alias du="ncdu --color dark -rr -x --exclude .git --exclude node_modules"
+alias \du="du" # Use this if you want the default du
+
+# Nicer cat
+alias cat="bat --style=numbers,changes"
+alias \cat="cat" # Use this if you want the default cat
