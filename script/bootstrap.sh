@@ -13,6 +13,9 @@ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:
 mkdir -p ~/.vim/bundle
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
+# install homebrew
+/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
 cd "$(dirname "$0")/.."
 DOTFILES_ROOT=$(pwd)
 set -e
@@ -40,6 +43,38 @@ fail () {
 link_files () {
   ln -s $1 $2
   success "linked $1 to $2"
+}
+
+install_brew_packages () {
+  info 'installing brew packages'
+
+  # ZSH
+  brew install zsh
+
+  # Git things
+  brew install git-extras git-flow tig
+
+  # Replacement for cat with git integration and syntax highlighting
+  brew install bat
+
+  # Replacement for cURL
+  brew install httpie
+
+  # Want SSL certs locally?
+  brew install mkcert
+
+  # List the current directory in a tree-like format
+  brew install tree
+
+  # Yarn FTW
+  brew install yarn
+
+  # Replacement for du
+  brew install ncdu
+
+  # Command-line fuzzy finder
+  brew install fzf
+  $(brew --prefix)/opt/fzf/install
 }
 
 install_dotfiles () {
