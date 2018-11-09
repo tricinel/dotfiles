@@ -67,3 +67,6 @@ alias git-amend='git commit --amend -C HEAD'
 
 # Add untracked, remove deleted, and show status
 alias gad='git add -A && gs'
+
+# Push only current branch to origin remote
+alias ggp='git push origin $(current_branch)'
