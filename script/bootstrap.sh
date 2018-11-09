@@ -74,7 +74,6 @@ install_brew_packages () {
 
   # Command-line fuzzy finder
   brew install fzf
-  $(brew --prefix)/opt/fzf/install
 }
 
 install_dotfiles () {
