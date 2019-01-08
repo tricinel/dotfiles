@@ -69,4 +69,4 @@ alias git-amend='git commit --amend -C HEAD'
 alias gad='git add -A && gs'
 
 # Push only current branch to origin remote
-alias ggp='git push origin $(current_branch)'
+alias gpo='git push origin $(current_branch)'
