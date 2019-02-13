@@ -13,6 +13,10 @@ alias glg="git log --graph --pretty=format:'%C(yellow)%d%Creset %s [%C(cyan)%an%
 # --decorate will give information about which branch a commit was made on where applicable
 alias ggraph="git log --graph --all --decorate --stat --date=iso"
 
+# Inline pretty git log
+# You can also shorten it to the last n commits by appending -n, e.g. -2 will get the last 2 commits
+alias glnp="git --no-pager log --pretty=format:'%Cred%h%Creset %C(cyan)%an%Creset - %C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative"
+
 # Summaries of git log with commit count summary only sorted according to the number of commits per author
 alias gstats="git shortlog -sn"
 
