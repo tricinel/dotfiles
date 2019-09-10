@@ -59,6 +59,7 @@ install_brew_packages () {
 
   # Replacement for cURL
   brew install httpie
+  brew install rs/tap/curlie
 
   # Want SSL certs locally?
   brew install mkcert
