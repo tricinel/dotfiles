@@ -99,3 +99,13 @@ function clone {
 
   git clone $url $repo && cd $repo && c .;
 }
+
+# Get origin GitHub URL for current repo
+# Thank you @jaredpalmer
+function gurl() {
+  local remotename="${@:-origin}"
+  local remote="$(git remote -v | awk '/^'"$remotename"'.*\(push\)$/ {print $2}')"
+  [[ "$remote" ]] || return
+  local user_repo="$(echo "$remote" | perl -pe 's/.*://;s/\.git$//')"
+  echo "https://github.com/$user_repo"
+}
