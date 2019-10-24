@@ -126,3 +126,8 @@ function lt() {
     tree -L $1 --dirsfirst -I 'bower_components|node_modules'
   fi
 }
+
+# Copy files with progress
+function rcp () {
+  rsync -WavP --human-readable --progress $1 $2
+}
