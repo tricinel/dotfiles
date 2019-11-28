@@ -52,7 +52,7 @@ install_brew_packages () {
   brew install zsh
 
   # Git things
-  brew install git-extras git-flow tig
+  brew install git-extras git-flow tig diff-so-fancy
 
   # Replacement for cat with git integration and syntax highlighting
   brew install bat
@@ -157,9 +157,18 @@ install_additional() {
   cp $DOTFILES_ROOT/vim/apprentice.vim $HOME/.vim/colors/
 }
 
+configure() {
+  # Configure git to use diff-so-fancy for all diff output
+  git config --global core.pager "diff-so-fancy | less --tabs=4 -RFX"
+}
+
 install_dotfiles
 
 install_additional
+
+install_brew_packages
+
+configure
 
 echo ''
 echo '  All installed!'
