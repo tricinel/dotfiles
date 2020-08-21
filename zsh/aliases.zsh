@@ -114,3 +114,7 @@ alias \du="du" # Use this if you want the default du
 # Nicer cat
 alias cat="bat --style=numbers,changes"
 alias \cat="cat" # Use this if you want the default cat
+
+# When you're tired of typing rm -rf :)
+alias yolo="rm -rf"
+alias nuke="sudo rm -rf"
