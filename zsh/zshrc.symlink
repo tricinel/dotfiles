@@ -92,3 +92,8 @@ load-nvmrc() {
 }
 add-zsh-hook chpwd load-nvmrc
 load-nvmrc
+
+# Add iterm2 user variables that we can use in the status bar
+iterm2_print_user_vars() {
+  iterm2_set_user_var nodeVersion $(node -v)
+}
