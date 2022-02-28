@@ -1,0 +1,28 @@
+
+accent: '#f3d3bd'
+background: '#011638'
+details: darker
+foreground: '#52a6f0'
+background_image:
+  path: bg.jpg
+  opacity: 90
+
+terminal_colors:
+  bright:
+    black: '#8db2f4'
+    blue: '#8ab2f5'
+    cyan: '#b2ebf2'
+    green: '#5dd39e'
+    magenta: '#ce93d8'
+    red: '#fb3640'
+    white: '#cce6f4'
+    yellow: '#f9dc5c'
+  normal:
+    black: '#8db2f4'
+    blue: '#8ab2f5'
+    cyan: '#b2ebf2'
+    green: '#5dd39e'
+    magenta: '#ce93d8'
+    red: '#fb3640'
+    white: '#cce6f4'
+    yellow: '#f9dc5c'

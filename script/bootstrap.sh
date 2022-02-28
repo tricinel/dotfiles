@@ -142,6 +142,12 @@ install_additional() {
 
   # Vim: copy the color scheme
   cp $DOTFILES_ROOT/vim/apprentice.vim $HOME/.vim/colors/
+
+  # Starship config
+  cp $DOTFILES_ROOT/configs/starship.toml $HOME/.config/
+
+  # Warp themes
+  cp $DOTFILES_ROOT/warp/* $HOME/.warp/themes/
 }
 
 configure() {
