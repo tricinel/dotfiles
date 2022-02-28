@@ -1,23 +1,3 @@
-# Start an HTTP server from a directory, optionally specifying the port
-function server() {
-  local port="${1:-8000}"
-  open "http://localhost:${port}/"
-  # Set the default Content-Type to `text/plain` instead of `application/octet-stream`
-  # And serve everything as UTF-8 (although not technically correct, this doesn’t break anything for binary files)
-  python -c $'import SimpleHTTPServer;\nmap = SimpleHTTPServer.SimpleHTTPRequestHandler.extensions_map;\nmap[""] = "text/plain";\nfor key, value in map.items():\n\tmap[key] = value + ";charset=UTF-8";\nSimpleHTTPServer.test();' "$port"
-}
-
-# Test if HTTP compression (RFC 2616 + SDCH) is enabled for a given URL.
-# Send a fake UA string for sites that sniff it instead of using the Accept-Encoding header. (Looking at you, ajax.googleapis.com!)
-function httpcompression() {
-  encoding="$(curl -LIs -H 'User-Agent: Mozilla/5 Gecko' -H 'Accept-Encoding: gzip,deflate,compress,sdch' "$1" | grep '^Content-Encoding:')" && echo "$1 is encoded using ${encoding#* }" || echo "$1 is not using any encoding"
-}
-
-# find shorthand
-function f() {
-  find . -name "$1"
-}
-
 # Create a new directory and enter it
 function mkd() {
   mkdir -p "$@" && cd "$@"
@@ -130,4 +110,36 @@ function lt() {
 # Copy files with progress
 function rcp () {
   rsync -WavP --human-readable --progress $1 $2
+}
+
+function zsh_add_file() {
+  [ -f "$ZDOTDIR/$1" ] && source "$ZDOTDIR/$1"
+}
+
+function zsh_add_plugin() {
+  PLUGIN_NAME=$(echo $1 | cut -d "/" -f 2)
+  if [ -d "$ZDOTDIR/plugins/$PLUGIN_NAME" ]; then
+    # For plugins
+    zsh_add_file "plugins/$PLUGIN_NAME/$PLUGIN_NAME.plugin.zsh" || \
+    zsh_add_file "plugins/$PLUGIN_NAME/$PLUGIN_NAME.zsh"
+  else
+    git clone "https://github.com/$1.git" "$ZDOTDIR/plugins/$PLUGIN_NAME"
+  fi
+}
+
+function zsh_add_completion() {
+  PLUGIN_NAME=$(echo $1 | cut -d "/" -f 2)
+  if [ -d "$ZDOTDIR/plugins/$PLUGIN_NAME" ]; then
+    # For completions
+    completion_file_path=$(ls $ZDOTDIR/plugins/$PLUGIN_NAME/_*)
+    fpath+="$(dirname "${completion_file_path}")"
+      zsh_add_file "plugins/$PLUGIN_NAME/$PLUGIN_NAME.plugin.zsh"
+  else
+    git clone "https://github.com/$1.git" "$ZDOTDIR/plugins/$PLUGIN_NAME"
+    fpath+=$(ls $ZDOTDIR/plugins/$PLUGIN_NAME/_*)
+    [ -f $ZDOTDIR/.zccompdump ] && $ZDOTDIR/.zccompdump
+  fi
+
+  completion_file="$(basename "${completion_file_path}")"
+	if [ "$2" = true ] && compinit "${completion_file:1}"
 }

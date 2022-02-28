@@ -14,25 +14,12 @@ script/bootstrap.sh
 
 This will do a couple of things:
 
-* Install [z](https://github.com/rupa/z) and [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh).
-
-* Symlink the appropriate files in ``.dotfiles`` to your home directory. Everything is configured and tweaked within ``~/.dotfiles``.
-
-## Overview of files
-
-* ``git/`` will give you some neat aliases and functions to use with git.
-* ``script/bootstrap.sh`` will bootstrap your dotfiles. Run this in the beginning.
-* ``zsh/`` will set up some aliases, functions and exports.
-* ``zsh/zshrc.symlink`` is where you'll need to make your modifications, as some paths might differ on your system. The file also sets up the plugins and theme to work with oh-my-zsh.
+* Install `zsh`, the `starship prompt` and a couple of other `brew` goodies. See the `script/bootstrap.sh` file for all the packages that will be installed.
+* Symlink the appropriate files in `.dotfiles` to your home directory. Everything is configured and tweaked within `~/.dotfiles`.
 
 ## Private config
 
-If you have sensible private information particular to your system (DON'T commit your ssh keys and passwords dude), put them into a ``.localrc`` file in your ``$HOME`` folder and ``.zshrc`` will pick it up automatically.
-
-## Upcoming
-
-* A new ``dev_bootstrap`` script that will install other dependencies like [rvm](https://rvm.io/) or [node](http://nodejs.org/).
-* I live in [SublimeText](http://www.sublimetext.com/) and plan to share my settings as well. Perhaps a small ``st_bootstrap`` script to install some packages for you as well?
+If you have sensible private information particular to your system (DON'T commit your ssh keys and passwords dude), put them into a `.localrc` file in your `$HOME` folder and `.zshrc` will pick it up automatically.
 
 ## Comments
 

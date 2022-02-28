@@ -1,47 +1,29 @@
-# Path to your oh-my-zsh configuration.
-ZSH=$HOME/.oh-my-zsh
+export ZDOTDIR=$HOME/.config/zsh
 
-# Set name of the theme to load.
-# Look in ~/.oh-my-zsh/themes/
-# Optionally, if you set this to "random", it'll load a random theme each
-# time that oh-my-zsh is loaded.
-# ZSH_THEME="pygmalion"
-ZSH_THEME="avit"
+# some useful options (man zshoptions)
+setopt autocd extendedglob nomatch menucomplete
+setopt interactive_comments
+stty stop undef		# Disable ctrl-s to freeze terminal.
+zle_highlight=('paste:none')
 
-# Set to this to use case-sensitive completion
-# CASE_SENSITIVE="true"
+# beeping is annoying
+unsetopt BEEP
 
-# Comment this out to disable bi-weekly auto-update checks
-# DISABLE_AUTO_UPDATE="true"
+# completions
+autoload -Uz compinit
+zstyle ':completion:*' menu select
+# zstyle ':completion::complete:lsof:*' menu yes select
+zmodload zsh/complist
+# compinit
+_comp_options+=(globdots)		# Include hidden files.
 
-# Uncomment to change how often before auto-updates occur? (in days)
-# export UPDATE_ZSH_DAYS=13
+autoload -U up-line-or-beginning-search
+autoload -U down-line-or-beginning-search
+zle -N up-line-or-beginning-search
+zle -N down-line-or-beginning-search
 
-# Uncomment following line if you want to disable colors in ls
-# DISABLE_LS_COLORS="true"
-
-# Uncomment following line if you want to disable autosetting terminal title.
-# DISABLE_AUTO_TITLE="true"
-
-# Uncomment following line if you want to disable command autocorrection
-# DISABLE_CORRECTION="true"
-
-# Uncomment following line if you want red dots to be displayed while waiting for completion
-COMPLETION_WAITING_DOTS="true"
-
-# Uncomment following line if you want to disable marking untracked files under
-# VCS as dirty. This makes repository status check for large repositories much,
-# much faster.
-# DISABLE_UNTRACKED_FILES_DIRTY="true"
-
-# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
-# Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git git-flow osx git-extras git-prompt docker docker-compose vagrant wd zsh-syntax-highlighting)
-
-source $ZSH/oh-my-zsh.sh
-
-# Customize to your needs...
+# Colors
+autoload -Uz colors && colors
 
 # shortcut to this dotfiles path is $DOTFILES
 export DOTFILES=$HOME/.dotfiles
@@ -65,7 +47,9 @@ done
 
 unset config_files
 
-test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+if [[ $TERM_PROGRAM == "iTerm.app" ]]; then
+  test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+fi
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -97,3 +81,5 @@ load-nvmrc
 iterm2_print_user_vars() {
   iterm2_set_user_var nodeVersion $(node -v)
 }
+
+eval "$(starship init zsh)"

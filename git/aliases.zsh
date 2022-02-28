@@ -38,9 +38,6 @@ alias gbnm='git branch --no-merged master'
 # List branches that are already merged into master
 alias gbm='git branch --merged master'
 
-# Remove branches that have already been merged into master
-alias gbm-remove='git branch --merged master | grep -v '^\*' | xargs -n 1 git branch -d'
-
 # Quickly switch to the previous branch
 alias gco-='git checkout -'
 
@@ -51,18 +48,23 @@ alias gfl='git log -u'
 alias gdf='git diff --name-only --diff-filter=U'
 
 # These should be self-explanatory
-alias gf='git flow'
-alias g='git'
 alias gp='git push'
+alias gf='git fetch'
+alias gfo='git fetch origin'
 alias gl='git pull'
 alias gdiff='git diff'
 alias gb='git branch'
 alias gs='git status -sb' # upgrade your git if -sb breaks for you. it's fun.
 alias gi='git init'
 alias ga='git add'
-alias gr='git rm'
+alias grm='git rm'
 alias git-snapshot='!git stash save "snapshot: $(date)" && git stash apply "stash@{0}"'
 alias git-undo='git reset --soft HEAD^' # Undo your last commit, but don't throw away your changes
+alias gpf='git push --force origin $(current_branch)'
+alias gr='git remote'
+alias gra='git remote add'
+alias gc="git commit"
+alias gcm="git commit -m"
 
 # Use the last commit message and amend your stuff.
 # Stolen from @holman

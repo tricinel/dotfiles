@@ -2,13 +2,6 @@
 # inspired from the awesome and amazing @holman
 # https://github.com/holman/dotfiles/blob/master/script/bootstrap
 
-# https://github.com/robbyrussell/oh-my-zsh
-# install oh-my-zsh
-git clone git://github.com/robbyrussell/oh-my-zsh.git ~/.oh-my-zsh
-
-# install any custom plugins
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-
 # install Vundle
 mkdir -p ~/.vim/bundle
 git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
@@ -52,7 +45,7 @@ install_brew_packages () {
   brew install zsh
 
   # Git things
-  brew install git-extras git-flow tig diff-so-fancy
+  brew install git-extras tig diff-so-fancy
 
   # Replacement for cat with git integration and syntax highlighting
   brew install bat
@@ -61,23 +54,17 @@ install_brew_packages () {
   brew install httpie
   brew install rs/tap/curlie
 
-  # Want SSL certs locally?
-  brew install mkcert
-
   # List the current directory in a tree-like format
   brew install tree
-
-  # Yarn FTW
-  brew install yarn
 
   # Replacement for du
   brew install ncdu
 
-  # Command-line fuzzy finder
-  brew install fzf
+  # Let's get PNPM
+  brew install pnpm
 
-  # Tig: text-mode interface for Git
-  brew install tig
+  # Starship Prompt
+  brew install starship
 
   # install nvm
   curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
