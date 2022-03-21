@@ -34,7 +34,7 @@ else
 fi
 
 # IP addresses
-alias ip="curl ipinfo.io/ip"
+alias ip="curl http://ipecho.net/plain"
 alias localip="ipconfig getifaddr en1"
 alias ips="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
 
