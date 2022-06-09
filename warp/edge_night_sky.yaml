@@ -1,15 +1,12 @@
 
-accent: '#f3d3bd'
-background: '#011638'
+accent: '#172a3a'
+background: '#081a20'
 details: darker
-foreground: '#52a6f0'
-background_image:
-  path: bg.jpg
-  opacity: 90
+foreground: '#a9bcd0'
 
 terminal_colors:
   bright:
-    black: '#8db2f4'
+    black: '#07161b'
     blue: '#8ab2f5'
     cyan: '#b2ebf2'
     green: '#5dd39e'
@@ -18,7 +15,7 @@ terminal_colors:
     white: '#cce6f4'
     yellow: '#f9dc5c'
   normal:
-    black: '#8db2f4'
+    black: '#061419'
     blue: '#8ab2f5'
     cyan: '#b2ebf2'
     green: '#5dd39e'
