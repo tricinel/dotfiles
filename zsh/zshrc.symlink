@@ -83,3 +83,6 @@ iterm2_print_user_vars() {
 }
 
 eval "$(starship init zsh)"
+
+export PNPM_HOME="/Users/tricinel/Library/pnpm"
+export PATH="$PNPM_HOME:$PATH"
