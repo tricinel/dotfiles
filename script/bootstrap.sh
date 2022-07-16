@@ -68,6 +68,9 @@ install_brew_packages () {
 
   # install nvm
   curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+
+  # TLDR - Simplified man pages
+  brew install tldr
 }
 
 install_dotfiles () {
