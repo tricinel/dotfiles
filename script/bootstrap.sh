@@ -71,6 +71,10 @@ install_brew_packages () {
 
   # TLDR - Simplified man pages
   brew install tldr
+
+  # Fuzzy finder
+  brew install fzf
+  $(brew --prefix)/opt/fzf/install --key-bindings --completion --no-update-rc --no-bash --no-fish
 }
 
 install_dotfiles () {
