@@ -87,5 +87,6 @@ eval "$(starship init zsh)"
 # fzf fuzzy finder
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+export CARGO_PATH="/Users/tricinel/.cargo/bin"
 export PNPM_HOME="/Users/tricinel/Library/pnpm"
-export PATH="$PNPM_HOME:$PATH"
+export PATH="$PNPM_HOME:$CARGO_PATH:$PATH"

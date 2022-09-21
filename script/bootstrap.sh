@@ -75,6 +75,10 @@ install_brew_packages () {
   # Fuzzy finder
   brew install fzf
   $(brew --prefix)/opt/fzf/install --key-bindings --completion --no-update-rc --no-bash --no-fish
+
+  # Rust
+  brew install rust
+  brew install rustfmt
 }
 
 install_dotfiles () {
