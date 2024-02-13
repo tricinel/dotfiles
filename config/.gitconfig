@@ -1,6 +1,5 @@
-[user]
-	name = Bogdan Lazar
-	email = bogdan@bogdanlazar.com
+[include]
+  path = ~/.gitconfig.local
 [ui]
 	color = auto
 [diff]
@@ -74,12 +73,9 @@
 	s = status -sb
 	c = commit
 	a = add
-	ad = add -A && gs
 	amend = commit --amend -C HEAD
 	po = push origin $(current_branch)
 	cm = commit -m
 	undo = reset --soft HEAD^
 	# Find out which branches contain the commit hash
 	contains = branch -a --contains
-[maintenance]
-	repo = /Users/tricinel/Work/Personal/bogdanlazar.com

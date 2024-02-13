@@ -21,6 +21,18 @@ This will do a couple of things:
 
 If you have sensible private information particular to your system (DON'T commit your ssh keys and passwords dude), put them into a `.localrc` file in your `$HOME` folder and `.zshrc` will pick it up automatically.
 
+**Git config**
+
+`.gitconfig` will have some good defaults and a bunch of aliases already set up. You will need to create a file called `.gitconfig.local` in your home directory and put your git user in there. It should look like this:
+
+```
+[user]
+	name = John Doe
+	email = john@doe.com
+```
+
+Any other git config you want to keep private, you can put in there.
+
 ## Comments
 
 As always, these are most [welcome](https://github.com/tricinel/dotfiles/issues).
