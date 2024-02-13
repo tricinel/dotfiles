@@ -1,0 +1,85 @@
+[user]
+	name = Bogdan Lazar
+	email = bogdan@bogdanlazar.com
+[ui]
+	color = auto
+[diff]
+	compactionHeuristic = true
+    tool = icdiff
+[difftoll]
+    prompt = false
+    cmd = /usr/local/bin/icdiff --line-numbers $LOCAL $REMOTE
+[push]
+	default = simple
+	followTags = true
+	autoSetupRemote = true
+[pull]
+    rebase = true
+[merge]
+    conflictstyle = diff3
+[fetch]
+	prune = true
+[init]
+	defaultBranch = main
+[gpg]
+    program = gpg2
+[rerere]
+	enabled = true
+[core]
+	pager = diff-so-fancy | less --tabs=4 -RFX
+[interactive]
+	diffFilter = diff-so-fancy --patch
+[color]
+	ui = true
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
+[color "diff"]
+	meta = 11
+	frag = magenta bold
+	func = 146 bold
+	commit = yellow bold
+	old = red bold
+	new = green bold
+	whitespace = red reverse
+[column]
+	ui = auto
+[branch]
+	sort = -comitterdate
+[alias]
+	staash = stash --all
+	# Undo a `git push`
+	undopush = push --force-with-lease origin HEAD^:master
+	# Pretty 'git log'
+	ls = log --graph --pretty=format:'%Cred%h%Creset %C(cyan)%an%Creset - %C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+	# Get graph-based logs for all branches showing commit stats (additions, deletions)
+	# --decorate will give information about which branch a commit was made on where applicable
+	la = log --graph --all --decorate --stat --date=iso
+	# Summaries of git log with commit count summary only sorted according to the number of commits per author
+	stats = shortlog -sn
+	# Display a summary of all deleted files including paths
+	deleted = log --diff-filter=D --summary
+	# List all the commits related to a file, with the diff of the changes
+	changed = log -u
+	# List all conflicted files
+	conflicts = diff --name-only --diff-filter=U
+	cob = checkout -b
+	co = checkout
+	p = push
+	l = pull
+	f = fetch
+	b = branch
+	s = status -sb
+	c = commit
+	a = add
+	ad = add -A && gs
+	amend = commit --amend -C HEAD
+	po = push origin $(current_branch)
+	cm = commit -m
+	undo = reset --soft HEAD^
+	# Find out which branches contain the commit hash
+	contains = branch -a --contains
+[maintenance]
+	repo = /Users/tricinel/Work/Personal/bogdanlazar.com
