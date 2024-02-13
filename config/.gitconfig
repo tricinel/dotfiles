@@ -47,7 +47,7 @@
 [column]
 	ui = auto
 [branch]
-	sort = -comitterdate
+	sort = -committerdate
 [alias]
 	staash = stash --all
 	# Undo a `git push`
