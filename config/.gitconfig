@@ -73,6 +73,7 @@
 	s = status -sb
 	c = commit
 	a = add
+	unstage = reset --
 	amend = commit --amend -C HEAD
 	po = push origin $(current_branch)
 	cm = commit -m
