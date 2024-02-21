@@ -5,7 +5,6 @@ BREW_APPS=(
     git
     gpg
 	tig
-    diff-so-fancy
     bat
     httpie
     rs/tap/curlie
@@ -17,6 +16,8 @@ BREW_APPS=(
     rust
     rustfmt
     stow
+    git-delta
+    difftastic
 )
 
 STOW_FOLDERS=(
@@ -64,7 +65,7 @@ configure_apps() {
     # zsh
     mkdir -p $HOME/.config/zsh
     # starship
-    ln -s zsh/starship.toml $HOME/.config/starship.toml 
+    ln -s zsh/starship.toml $HOME/.config/starship.toml
     # fzf
     $(brew --prefix)/opt/fzf/install --key-bindings --completion --no-update-rc --no-bash --no-fish
 }

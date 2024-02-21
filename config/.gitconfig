@@ -4,30 +4,46 @@
 	color = auto
 [diff]
 	compactionHeuristic = true
-    tool = icdiff
+  tool = difftastic
+	algorithm = histogram
+	context = 10
+	colorMoved = default
 [difftoll]
-    prompt = false
-    cmd = /usr/local/bin/icdiff --line-numbers $LOCAL $REMOTE
+	prompt = false
+	cmd = /usr/local/bin/icdiff --line-numbers $LOCAL $REMOTE
+[difftool]
+	prompt = false
+[difftool "difftastic"]
+	cmd = difft "$LOCAL" "$REMOTE"
+[pager]
+	difftool = true
 [push]
 	default = simple
 	followTags = true
 	autoSetupRemote = true
 [pull]
-    rebase = true
+  rebase = true
 [merge]
-    conflictstyle = diff3
+  conflictstyle = zdiff3
+[rebase]
+	autostash = true
 [fetch]
 	prune = true
 [init]
 	defaultBranch = main
+[url "git@github.com:"]
+	insteadOf = "https://github.com/"
 [gpg]
-    program = gpg2
+  program = gpg2
 [rerere]
 	enabled = true
 [core]
-	pager = diff-so-fancy | less --tabs=4 -RFX
+	pager = delta
 [interactive]
-	diffFilter = diff-so-fancy --patch
+	diffFilter = delta --color-only
+# The git-detail diff tool for the pager
+[delta]
+  navigate = true
 [color]
 	ui = true
 [color "diff-highlight"]
@@ -56,6 +72,8 @@
 	# Get graph-based logs for all branches showing commit stats (additions, deletions)
 	# --decorate will give information about which branch a commit was made on where applicable
 	la = log --graph --all --decorate --stat --date=iso
+	# git log -p with difftastic
+	dlog = "!f() { GIT_EXTERNAL_DIFF=difft git log -p --ext-diff $@; }; f"
 	# Summaries of git log with commit count summary only sorted according to the number of commits per author
 	stats = shortlog -sn
 	# Display a summary of all deleted files including paths
@@ -80,3 +98,5 @@
 	undo = reset --soft HEAD^
 	# Find out which branches contain the commit hash
 	contains = branch -a --contains
+	# Diff tool
+	dft = difftool
