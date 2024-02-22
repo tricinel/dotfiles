@@ -100,3 +100,5 @@
 	contains = branch -a --contains
 	# Diff tool
 	dft = difftool
+	# List all the aliases
+	alias = ! git config --get-regexp ^alias\\. | sed -e s/^alias\\.// -e s/\\ /\\ =\\ /
