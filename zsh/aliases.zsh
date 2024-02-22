@@ -78,11 +78,11 @@ alias repair="sudo diskutil repairPermissions /"
 
 # Nicer disk space using ncdu
 alias du="ncdu --color dark -rr -x --exclude .git --exclude node_modules"
-alias \du="du" # Use this if you want the default du
+alias ddu="du" # Use this if you want the default du
 
 # Nicer cat
 alias cat="bat --style=numbers,changes"
-alias \cat="cat" # Use this if you want the default cat
+alias ccat="cat" # Use this if you want the default cat
 
 # When you're tired of typing rm -rf :)
 alias yolo="rm -rf"
