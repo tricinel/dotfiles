@@ -85,3 +85,4 @@ eval "$(starship init zsh)"
 export CARGO_PATH="/Users/tricinel/.cargo/bin"
 export PNPM_HOME="/Users/tricinel/Library/pnpm"
 export PATH="$PNPM_HOME:$CARGO_PATH:$PATH"
+export SSH_AUTH_SOCK=$(/opt/homebrew/bin/gpgconf --list-dirs agent-ssh-socket)
