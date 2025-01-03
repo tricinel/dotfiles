@@ -19,6 +19,9 @@ BREW_APPS=(
     git-delta
     difftastic
     neovim
+    lazygit
+    ripgrep
+    fd
 )
 
 STOW_FOLDERS=(
