@@ -4,7 +4,7 @@ BREW_APPS=(
     zsh
     git
     gpg
-	  tig
+	tig
     bat
     httpie
     rs/tap/curlie
@@ -18,6 +18,7 @@ BREW_APPS=(
     stow
     git-delta
     difftastic
+    neovim
 )
 
 STOW_FOLDERS=(
