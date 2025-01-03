@@ -4,7 +4,7 @@ BREW_APPS=(
     zsh
     git
     gpg
-	tig
+	  tig
     bat
     httpie
     rs/tap/curlie
@@ -57,7 +57,10 @@ install_standalone_apps() {
     corepack enable
     # https://pnpm.io/installation#using-corepac
     corepack prepare pnpm@latest --activate
-    corepack prepare yarn@stable --activate
+
+    # instal lazyvim
+    mv ~/.config/nvim{,.bak}
+    git clone https://github.com/tricinel/lazyvim ~/.config/nvim
 }
 
 configure_apps() {
