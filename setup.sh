@@ -22,6 +22,7 @@ BREW_APPS=(
     lazygit
     ripgrep
     fd
+    eza
 )
 
 STOW_FOLDERS=(

@@ -91,3 +91,8 @@ alias nuke="sudo rm -rf"
 # Fuzzy find stuff
 alias hf="history | fzf"
 alias af="alias | fzf"
+
+# Eza
+alias l="eza -l --icons --git -a"
+alias lt="eza --tree --level=2 --long --icons --git"
+alias ltree="eza --tree --level=2 --icons --git"
