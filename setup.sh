@@ -23,6 +23,7 @@ BREW_APPS=(
     ripgrep
     fd
     eza
+    zoxide
 )
 
 STOW_FOLDERS=(
