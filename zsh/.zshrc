@@ -41,7 +41,7 @@ fi
 
 # all of our zsh files
 typeset -U config_files
-config_files=($DOTFILES/**/*.zsh)
+config_files=($DOTFILES/extra/**/*.zsh)
 
 # load everything
 for file in ${(M)config_files}

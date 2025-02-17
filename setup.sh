@@ -4,11 +4,9 @@ BREW_APPS=(
     zsh
     git
     gpg
-	tig
     bat
     httpie
     rs/tap/curlie
-    tree
     ncdu
     starship
     tldr
@@ -27,7 +25,11 @@ BREW_APPS=(
 )
 
 STOW_FOLDERS=(
-    config
+    git
+    nvim
+    starship
+    warp
+    zsh
 )
 
 install_homebrew() {
@@ -64,17 +66,14 @@ install_standalone_apps() {
     # https://pnpm.io/installation#using-corepac
     corepack prepare pnpm@latest --activate
 
-    # instal lazyvim
+    # Backup nvim
     mv ~/.config/nvim{,.bak}
-    git clone https://github.com/tricinel/lazyvim ~/.config/nvim
 }
 
 configure_apps() {
 	echo "configuring apps..."
     # zsh
     mkdir -p $HOME/.config/zsh
-    # starship
-    ln -s zsh/starship.toml $HOME/.config/starship.toml
     # fzf
     $(brew --prefix)/opt/fzf/install --key-bindings --completion --no-update-rc --no-bash --no-fish
 }
@@ -84,7 +83,7 @@ stow_files() {
     for folder in $STOW_FOLDERS
     do
         echo "stowing $folder"
-        stow --restow --ignore='zsh' $folder
+        stow --restow $folder
     done
 }
 
