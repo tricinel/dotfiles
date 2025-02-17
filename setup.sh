@@ -66,8 +66,21 @@ install_standalone_apps() {
     # https://pnpm.io/installation#using-corepac
     corepack prepare pnpm@latest --activate
 
-    # Backup nvim
-    mv ~/.config/nvim{,.bak}
+}
+
+backup () {
+    # nvim
+    mv ~/.config/nvim{,.bak} # nvim
+    
+    # Warp
+    mv ~/.warp{_bak} .warp_backup # .warp
+    
+    # zsh
+    mv ~/.zshenv{.bak}
+    mv ~/.zshrc{.bak}
+
+    # git
+    mv ~/.gitconfig{.bak}
 }
 
 configure_apps() {
@@ -92,6 +105,7 @@ echo '==> Starting setup...'
 
 install_homebrew
 install_brew_apps
+backup
 stow_files
 install_standalone_apps
 configure_apps
