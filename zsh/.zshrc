@@ -88,4 +88,4 @@ eval "$(zoxide init zsh)"
 export CARGO_PATH="/Users/tricinel/.cargo/bin"
 export PNPM_HOME="/Users/tricinel/Library/pnpm"
 export PATH="$PNPM_HOME:$CARGO_PATH:$PATH"
-export SSH_AUTH_SOCK=$(/opt/homebrew/bin/gpgconf --list-dirs agent-ssh-socket)
+export SSH_AUTH_SOCK=$($HOMEBREW_BIN/gpgconf --list-dirs agent-ssh-socket)
