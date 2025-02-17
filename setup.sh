@@ -25,6 +25,7 @@ BREW_APPS=(
 )
 
 STOW_FOLDERS=(
+    ghostty
     git
     nvim
     starship
@@ -50,6 +51,9 @@ install_homebrew() {
 install_brew_apps() {
 	echo "installing brew apps..."
 	brew install ${BREW_APPS[@]}
+
+  # install ghostty
+  brew install --cask ghostty
 
 	brew cleanup
 }
@@ -81,6 +85,9 @@ backup () {
 
     # git
     mv ~/.gitconfig{.bak}
+
+    # Ghostty
+    mv ~/.config/ghostty{.bak}
 }
 
 configure_apps() {
@@ -106,8 +113,8 @@ echo '==> Starting setup...'
 install_homebrew
 install_brew_apps
 backup
-stow_files
 install_standalone_apps
+stow_files
 configure_apps
 
 echo ''

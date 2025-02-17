@@ -1,0 +1,20 @@
+theme = "tokyonight_moon"
+background-opacity = 0.95
+background-blur = 20
+
+window-padding-x = 4,2
+window-padding-y = 6,0
+macos-titlebar-style = "tabs"
+
+font-family = "JetBrainsMono Nerd Font"
+font-size = 13
+
+shell-integration-features = "no-cursor"
+cursor-style = "block"
+mouse-hide-while-typing = true
+bold-is-bright = "true"
+
+confirm-close-surface = false
+window-save-state = "always"
+
+keybind = super+k=clear_screen
