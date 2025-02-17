@@ -32,6 +32,15 @@ return {
           wrap = true,
           signcolumn = "no",
         },
+        float = {
+          padding = 2,
+          max_width = 0.4,
+          max_height = 0.6,
+          border = "rounded",
+          win_options = {
+            winblend = 0,
+          },
+        },
       })
     end,
   },
