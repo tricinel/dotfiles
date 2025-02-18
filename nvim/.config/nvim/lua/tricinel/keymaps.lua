@@ -15,16 +15,9 @@ set("n", "<c-n>", "<Plug>(YankyNextEntry)")
 
 set("n", "Y", "y$") -- Make Y behave like C or D
 
--- Clear highlights on search when pressing <Esc> in normal mode
-set("n", "<Esc>", "<cmd>nohlsearch<CR>")
+set("n", "<Esc>", "<cmd>nohlsearch<CR>") -- Clear highlights on search when pressing <Esc>
 
--- Disable arrow keys in normal mode``
-set("n", "<left>", '<cmd>echo "Use h to move!!"<CR>')
-set("n", "<right>", '<cmd>echo "Use l to move!!"<CR>')
-set("n", "<up>", '<cmd>echo "Use k to move!!"<CR>')
-set("n", "<down>", '<cmd>echo "Use j to move!!"<CR>')
-
-set("i", "jj", "<Esc>", { noremap = false })
+set("i", "jj", "<Esc>", { noremap = false }) -- Quickly go into normal mode from insert
 
 set("n", "E", "$") -- Move to the end of the line
 set("n", "B", "^") -- Move to the beginning of the line
@@ -33,8 +26,8 @@ set("n", "U", "<c-r>") -- Redo
 set("n", "==", "gg<S-v>G") -- Select all
 
 -- Working with files
-set("n", "QQ", ":qa<enter>", { noremap = false })
-set("n", "WW", ":w!<enter>", { noremap = false })
+set("n", "QQ", ":qa<enter>", { noremap = false }) -- Quit all
+set("n", "WW", ":w!<enter>", { noremap = false }) -- Quick save
 
 -- Keep window centered when going up/down
 set("n", "<C-d>", "<C-d>zz", { noremap = false })
@@ -54,8 +47,6 @@ set("n", "tj", ":bfirst<enter>", { noremap = false })
 set("n", "th", ":bprev<enter>", { noremap = false })
 set("n", "tl", ":bnext<enter>", { noremap = false })
 set("n", "td", ":bdelete<enter>", { noremap = false })
-
--- Visual mode
 
 -- Stay in indent mode
 set("v", "<", "<gv")
