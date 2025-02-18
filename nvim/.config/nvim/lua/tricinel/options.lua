@@ -13,3 +13,5 @@ opt.splitbelow = false
 
 opt.ignorecase = true
 opt.smartcase = true
+
+opt.swapfile = false
