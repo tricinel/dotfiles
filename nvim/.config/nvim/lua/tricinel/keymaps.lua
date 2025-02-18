@@ -48,6 +48,7 @@ set("n", "tj", ":bfirst<enter>", { noremap = false })
 set("n", "th", ":bprev<enter>", { noremap = false })
 set("n", "tl", ":bnext<enter>", { noremap = false })
 set("n", "td", ":bdelete<enter>", { noremap = false })
+set("n", "tt", "<cmd>e #<cr>", { desc = "Alternate buffer" })
 set(
   "n",
   "<leader>r",
