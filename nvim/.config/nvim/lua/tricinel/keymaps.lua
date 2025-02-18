@@ -24,6 +24,7 @@ set("n", "B", "^") -- Move to the beginning of the line
 
 set("n", "U", "<c-r>") -- Redo
 set("n", "==", "gg<S-v>G") -- Select all
+set({ "n", "v" }, "D", [["_d]]) -- Delete without remembering
 
 -- Working with files
 set("n", "QQ", ":qa<enter>", { noremap = false }) -- Quit all
@@ -47,6 +48,12 @@ set("n", "tj", ":bfirst<enter>", { noremap = false })
 set("n", "th", ":bprev<enter>", { noremap = false })
 set("n", "tl", ":bnext<enter>", { noremap = false })
 set("n", "td", ":bdelete<enter>", { noremap = false })
+set(
+  "n",
+  "<leader>r",
+  [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
+  { desc = "Replace word cursor is on in current buffer" }
+)
 
 -- Stay in indent mode
 set("v", "<", "<gv")
