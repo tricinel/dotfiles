@@ -1,8 +1,20 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
 # Inserts a blank line between shell prompts
 add_newline = false
 
+right_format = """$time"""
+
+[time]
+disabled = false
+format = "[ $time]($style)"
+time_format = "%R"
+utc_time_offset = "local"
+style = "dimmed white"
+
 [directory]
 style = "blue"
+format = "[ $path ]($style)"
 
 # makes prompt a single line
 [line_break]
@@ -22,6 +34,7 @@ min_time = 10_000  # Show command duration over 10,000 milliseconds (= 10 sec)
 format = "took [$duration]($style)"
 
 [git_branch]
+symbol = ""
 format = " [$symbol$branch]($style) "
 style = "bold yellow"
 
