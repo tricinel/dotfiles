@@ -1,4 +1,5 @@
 require("tricinel.lazy")
+require("tricinel.autocmds")
 require("tricinel.options")
 require("tricinel.keymaps")
 require("tricinel.workflows")
