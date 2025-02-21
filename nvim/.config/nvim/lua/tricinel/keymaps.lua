@@ -5,11 +5,6 @@
 local set = vim.keymap.set
 
 -- Yanky keymaps
-set({ "n", "x" }, "p", "<Plug>(YankyPutAfter)")
-set({ "n", "x" }, "P", "<Plug>(YankyPutBefore)")
-set({ "n", "x" }, "gp", "<Plug>(YankyGPutAfter)")
-set({ "n", "x" }, "gP", "<Plug>(YankyGPutBefore)")
-
 set("n", "<c-p>", "<Plug>(YankyPreviousEntry)")
 set("n", "<c-n>", "<Plug>(YankyNextEntry)")
 
@@ -24,7 +19,7 @@ set("n", "B", "^") -- Move to the beginning of the line
 
 set("n", "U", "<c-r>") -- Redo
 set("n", "==", "gg<S-v>G") -- Select all
-set({ "n", "v" }, "D", [["_d]]) -- Delete without remembering
+set({ "n", "v" }, "d_", [["_d]]) -- Delete without remembering
 
 -- Working with files
 set("n", "QQ", ":qa<enter>", { noremap = false }) -- Quit all
