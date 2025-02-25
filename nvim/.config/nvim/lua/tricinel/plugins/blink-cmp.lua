@@ -9,7 +9,7 @@ return {
     opts = {
       keymap = {
         preset = "default",
-        ["<S-CR>"] = { "accept", "fallback" },
+        ["<CR>"] = { "accept", "fallback" },
         ["<Tab>"] = { "snippet_forward", "fallback" },
         ["<S-Tab>"] = { "snippet_backward", "fallback" },
 
