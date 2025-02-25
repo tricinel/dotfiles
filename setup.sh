@@ -13,6 +13,7 @@ BREW_APPS=(
     fzf
     rust
     rustfmt
+    rust-analyzer
     stow
     git-delta
     difftastic
