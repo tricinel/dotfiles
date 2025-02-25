@@ -19,7 +19,11 @@ set("n", "B", "^") -- Move to the beginning of the line
 
 set("n", "U", "<c-r>") -- Redo
 set("n", "==", "gg<S-v>G") -- Select all
-set({ "n", "v" }, "d_", [["_d]]) -- Delete without remembering
+
+-- Delete without remembering
+set({ "n", "v" }, "d_", '"_dd')
+set("n", "x", '"_x')
+set("n", "c", '"_c')
 
 -- Working with files
 set("n", "QQ", ":qa<enter>", { noremap = false }) -- Quit all
@@ -61,3 +65,8 @@ set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move Block Up" })
 
 -- Oil
 set("n", "-", "<CMD>Oil --float<CR>", { desc = "Open parent directory" })
+
+-- Source file
+set("n", "<leader>%", function()
+  vim.cmd("so")
+end)
