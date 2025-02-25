@@ -7,7 +7,8 @@
   tool = difftastic
 	algorithm = histogram
 	context = 10
-	colorMoved = default
+	colorMoved = plain
+  renames = true
 [difftoll]
 	prompt = false
 	cmd = /usr/local/bin/icdiff --line-numbers $LOCAL $REMOTE
@@ -29,12 +30,15 @@
 	autostash = true
 [fetch]
 	prune = true
+  pruneTags = true
+  all = true
 [init]
 	defaultBranch = main
 [gpg]
   program = gpg2
 [rerere]
 	enabled = true
+  autoupdate = true
 [core]
 	pager = delta
 [interactive]
@@ -61,6 +65,10 @@
 	ui = auto
 [branch]
 	sort = -committerdate
+[tag]
+  sort = version:refname
+[help]
+  autocorrect = prompt
 [alias]
 	staash = stash --all
 	# Undo a `git push`
