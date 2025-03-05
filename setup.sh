@@ -9,7 +9,7 @@ BREW_APPS=(
     rs/tap/curlie
     ncdu
     starship
-    tldr
+    tealdeer
     fzf
     rust
     rustfmt
@@ -70,7 +70,6 @@ install_standalone_apps() {
     corepack enable
     # https://pnpm.io/installation#using-corepac
     corepack prepare pnpm@latest --activate
-
 }
 
 backup () {
@@ -92,7 +91,7 @@ backup () {
 }
 
 configure_apps() {
-	echo "configuring apps..."
+	  echo "configuring apps..."
     # zsh
     mkdir -p $HOME/.config/zsh
     # fzf
