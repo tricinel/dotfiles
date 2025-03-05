@@ -6,7 +6,7 @@ BREW_APPS=(
     gpg
     bat
     httpie
-    rs/tap/curlie
+    curlie
     ncdu
     starship
     tealdeer
