@@ -22,7 +22,7 @@ return {
         ["<S-j>"] = { "scroll_documentation_down", "fallback" },
 
         ["<C-space>"] = { "show", "show_documentation", "hide_documentation" },
-        ["<C-e>"] = { "hide", "fallback" },
+        ["<esc>"] = { "hide", "fallback" },
       },
 
       appearance = {
@@ -38,6 +38,11 @@ return {
         },
         trigger = {
           show_in_snippet = false,
+        },
+        ghost_text = {
+          enabled = false,
+          show_with_selection = false,
+          show_without_selection = false,
         },
       },
 
