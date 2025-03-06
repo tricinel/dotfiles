@@ -5,6 +5,8 @@ add_newline = false
 
 right_format = """$time"""
 
+command_timeout = 1_000
+
 [time]
 disabled = false
 format = "[ $time]($style)"
