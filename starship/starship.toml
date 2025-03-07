@@ -15,8 +15,9 @@ utc_time_offset = "local"
 style = "dimmed white"
 
 [directory]
-style = "blue"
+style = "bold cyan"
 format = "[ $path ]($style)"
+read_only = " 󰌾"
 
 # makes prompt a single line
 [line_break]
