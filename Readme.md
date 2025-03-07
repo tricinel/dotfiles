@@ -1,6 +1,6 @@
 # Bogdan's dotfiles
 
-These are my dotfiles. I use them with zsh and [warp](https://warp.dev) is my terminal of choice. I've pulled in what I needed from various amazing Github contributors like [@paulirish](https://github.com/paulirish/dotfiles), [@mathiasbynens](https://github.com/mathiasbynens/dotfiles/) or [@holman](https://github.com/holman/dotfiles) and [@chantastic](https://github.com/chantastic/dotfiles). So 1 billion thanks to them. My own additions are minor. The basically come from various online resources and videos. Feel free to fork and contribute.
+These are my dotfiles. I use them with zsh and [ghostty](https://ghostty.org/) is my terminal of choice.
 
 ## How to install
 
@@ -14,10 +14,11 @@ cd ~/.dotfiles
 
 This will do a couple of things:
 
-* Install `zsh`, the `starship prompt` and a couple of other `brew` goodies. See the `setup.sh` file for all the packages that will be installed.
-* Symlink the appropriate files in `.dotfiles` to your home directory. Everything is configured and tweaked within `~/.dotfiles`. We do this using [stow](https://www.gnu.org/software/stow/).
+- Install `zsh`, the `starship prompt` and a couple of other `brew` goodies. See the `setup.sh` file for all the packages that will be installed.
+- Symlink the appropriate files in `.dotfiles` to your home directory. Everything is configured and tweaked within `~/.dotfiles`. We do this using [stow](https://www.gnu.org/software/stow/).
+- Symlink the configs for nvim, ghostty, warp and git
 
-## Private config
+### Private config
 
 If you have sensible private information particular to your system (DON'T commit your ssh keys and passwords dude), put them into a `.localrc` file in your `$HOME` folder and `.zshrc` will pick it up automatically.
 
@@ -27,8 +28,8 @@ If you have sensible private information particular to your system (DON'T commit
 
 ```
 [user]
-	name = John Doe
-	email = john@doe.com
+ name = John Doe
+ email = john@doe.com
 ```
 
 Any other git config you want to keep private, you can put in there.
