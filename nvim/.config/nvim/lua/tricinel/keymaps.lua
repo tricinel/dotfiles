@@ -42,12 +42,10 @@ set("n", "<leader>se", "<C-w>=", { desc = "Make windows equal size" })
 set("n", "<leader>sx", "<cmd>close<CR>", { desc = "Close current split" })
 
 -- Working with buffers
-set("n", "tk", ":blast<enter>", { noremap = false })
-set("n", "tj", ":bfirst<enter>", { noremap = false })
-set("n", "th", ":bprev<enter>", { noremap = false })
-set("n", "tl", ":bnext<enter>", { noremap = false })
-set("n", "td", ":bdelete<enter>", { noremap = false })
-set("n", "tt", "<cmd>e #<cr>", { desc = "Alternate buffer" })
+set("n", "<S-DOWN>", ":blast<enter>", { noremap = false })
+set("n", "<S-UP>", ":bfirst<enter>", { noremap = false })
+set("n", "<S-BACKSPACE>", ":bdelete<enter>", { noremap = false })
+set("n", "<S-CR>", "<cmd>e #<cr>", { desc = "Alternate buffer" })
 set(
   "n",
   "<leader>r",
@@ -69,4 +67,4 @@ set("n", "-", "<CMD>Oil --float<CR>", { desc = "Open parent directory" })
 -- Source file
 set("n", "<leader>%", function()
   vim.cmd("so")
-end)
+end, { desc = "Source current file" })
