@@ -20,11 +20,6 @@ set("n", "B", "^") -- Move to the beginning of the line
 set("n", "U", "<c-r>") -- Redo
 set("n", "==", "gg<S-v>G") -- Select all
 
--- Delete without remembering
-set({ "n", "v" }, "d_", '"_dd')
-set("n", "x", '"_x')
-set("n", "c", '"_c')
-
 -- Working with files
 set("n", "QQ", ":qa<enter>", { noremap = false }) -- Quit all
 set("n", "WW", ":w!<enter>", { noremap = false }) -- Quick save
