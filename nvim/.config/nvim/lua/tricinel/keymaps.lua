@@ -13,6 +13,7 @@ set("n", "Y", "y$") -- Make Y behave like C or D
 set("n", "<Esc>", "<cmd>nohlsearch<CR>") -- Clear highlights on search when pressing <Esc>
 
 set("i", "jj", "<Esc>", { noremap = false }) -- Quickly go into normal mode from insert
+set("i", "kk", "<Esc>", { noremap = false }) -- Quickly go into normal mode from insert
 
 set("n", "E", "$") -- Move to the end of the line
 set("n", "B", "^") -- Move to the beginning of the line
@@ -22,7 +23,7 @@ set("n", "==", "gg<S-v>G") -- Select all
 
 -- Working with files
 set("n", "QQ", ":qa<enter>", { noremap = false }) -- Quit all
-set("n", "WW", ":w!<enter>", { noremap = false }) -- Quick save
+set({ "n", "i" }, "WW", "<esc>:w!<enter>", { noremap = false }) -- Quick save
 
 -- Keep window centered when going up/down
 set("n", "<C-d>", "<C-d>zz", { noremap = false })
