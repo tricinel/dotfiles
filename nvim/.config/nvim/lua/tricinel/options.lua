@@ -15,3 +15,6 @@ opt.ignorecase = true
 opt.smartcase = true
 
 opt.swapfile = false
+
+-- Avoid conflicts with Prettier.
+vim.g.lazyvim_prettier_needs_config = true
