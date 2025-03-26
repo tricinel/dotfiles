@@ -26,10 +26,10 @@ set("n", "QQ", ":qa<enter>", { noremap = false }) -- Quit all
 set({ "n", "i" }, "WW", "<esc>:w!<enter>", { noremap = false }) -- Quick save
 
 -- Keep window centered when going up/down
-set("n", "<C-d>", "<C-d>zz", { noremap = false })
-set("n", "<C-u>", "<C-u>zz", { noremap = false })
-set("n", "n", "nzzzv", { noremap = false })
-set("n", "N", "Nzzzv", { noremap = false })
+-- set("n", "<C-d>", "<C-d>zz", { noremap = false })
+-- set("n", "<C-u>", "<C-u>zz", { noremap = false })
+-- set("n", "n", "nzzzv", { noremap = false })
+-- set("n", "N", "Nzzzv", { noremap = false })
 
 -- Window management --
 set("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" })

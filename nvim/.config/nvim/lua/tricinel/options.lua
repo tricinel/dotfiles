@@ -5,7 +5,7 @@
 local opt = vim.opt
 
 opt.winbar = "%=%m %f"
-opt.scrolloff = 20 -- Lines of context
+opt.scrolloff = 999 -- Lines of context
 opt.guicursor = ""
 
 -- Don't put new windows below current
