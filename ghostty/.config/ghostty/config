@@ -8,7 +8,7 @@ macos-titlebar-style = tabs
 macos-window-shadow = false
 
 font-family = JetBrainsMono Nerd Font
-font-size = 13
+font-size = 14
 
 shell-integration-features = no-cursor,title
 cursor-style = block
