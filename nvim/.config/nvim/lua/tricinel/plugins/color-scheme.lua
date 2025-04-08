@@ -9,7 +9,6 @@ return {
       local fg = "#ced9e4"
       local accent = "#35e3c1"
       local cursor = "#292e42"
-      local green = "#35e3c1"
       local blue = "#36a2d0"
       local magenta = "#bb9af7"
 
@@ -29,7 +28,6 @@ return {
           colors.bg_statusline = bg
           colors.bg_popup = bg
           colors.bg_visual = bg_dark
-          colors.green = green
           colors.blue = blue
         end,
         on_highlights = function(highlights)
