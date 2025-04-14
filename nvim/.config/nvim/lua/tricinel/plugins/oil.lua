@@ -9,6 +9,15 @@ function _G.get_oil_winbar()
   end
 end
 
+function _G.contains(list, value)
+  for _, v in ipairs(list) do
+    if v == value then
+      return true
+    end
+  end
+  return false
+end
+
 return {
   {
     "stevearc/oil.nvim",
@@ -24,7 +33,8 @@ return {
           show_hidden = true,
           natural_order = true,
           is_always_hidden = function(name, _)
-            return name == ".." or name == ".git"
+            local hidden_files = { "..", ".git", ".DS_Store", ".Trashes", ".Trash" }
+            return contains(hidden_files, name)
           end,
         },
         win_options = {
