@@ -22,3 +22,19 @@ keybind = super+k=clear_screen
 keybind = super+comma=increase_font_size:1
 keybind = super+minus=decrease_font_size:1
 keybind = super+zero=reset_font_size
+keybind = super+r=reload_config
+
+keybind = alt+h=goto_split:left
+keybind = alt+j=goto_split:bottom
+keybind = alt+k=goto_split:top
+keybind = alt+l=goto_split:right
+
+keybind = alt+a>backslash=new_split:right
+keybind = alt+a>minus=new_split:down
+keybind = alt+a>d=close_surface
+
+keybind = cmd+shift+up=resize_split:up,50
+keybind = cmd+shift+down=resize_split:down,50
+keybind = cmd+shift+left=resize_split:left,50
+keybind = cmd+shift+right=resize_split:right,50
+keybind = cmd+shift+zero=equalize_splits
