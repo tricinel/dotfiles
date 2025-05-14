@@ -51,6 +51,9 @@ return {
             winblend = 0,
           },
         },
+        keymaps = {
+          ["<esc>"] = { "actions.close", mode = "n" },
+        },
       })
     end,
   },
