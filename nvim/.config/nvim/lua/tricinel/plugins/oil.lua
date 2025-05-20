@@ -52,7 +52,7 @@ return {
           },
         },
         keymaps = {
-          ["<esc>"] = { "actions.close", mode = "n" },
+          ["q"] = { "actions.close", mode = "n" },
         },
       })
     end,
