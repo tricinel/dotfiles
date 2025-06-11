@@ -38,3 +38,6 @@ keybind = cmd+shift+down=resize_split:down,50
 keybind = cmd+shift+left=resize_split:left,50
 keybind = cmd+shift+right=resize_split:right,50
 keybind = cmd+shift+zero=equalize_splits
+
+# turn full screen off
+keybind = cmd+enter=ignore
