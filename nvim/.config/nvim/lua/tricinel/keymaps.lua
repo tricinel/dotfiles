@@ -7,7 +7,6 @@ local set = vim.keymap.set
 -- Yanky keymaps
 set("n", "<c-p>", "<Plug>(YankyPreviousEntry)")
 set("n", "<c-n>", "<Plug>(YankyNextEntry)")
-
 set("n", "Y", "y$") -- Make Y behave like C or D
 
 set("n", "<Esc>", "<cmd>nohlsearch<CR>") -- Clear highlights on search when pressing <Esc>
@@ -19,7 +18,6 @@ set("n", "E", "$") -- Move to the end of the line
 set("n", "B", "^") -- Move to the beginning of the line
 
 set("n", "U", "<c-r>") -- Redo
-set("n", "==", "gg<S-v>G") -- Select all
 
 -- Working with files
 set("n", "QQ", ":qa<enter>", { noremap = false }) -- Quit all
