@@ -83,7 +83,7 @@ eval "$(starship init zsh)"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # load zoxide
-eval "$(zoxide init zsh)"
+eval "$(zoxide init zsh --cmd j)"
 
 export CARGO_PATH="/Users/tricinel/.cargo/bin"
 export PNPM_HOME="/Users/tricinel/Library/pnpm"
