@@ -7,7 +7,7 @@ local set = vim.keymap.set
 -- Yanky keymaps
 set("n", "<c-p>", "<Plug>(YankyPreviousEntry)")
 set("n", "<c-n>", "<Plug>(YankyNextEntry)")
-set("n", "Y", "y$") -- Make Y behave like C or D
+set("n", "Y", "y$", { desc = "Yank to end of line" })
 
 set("n", "<Esc>", "<cmd>nohlsearch<CR>") -- Clear highlights on search when pressing <Esc>
 
@@ -22,12 +22,6 @@ set("n", "U", "<c-r>") -- Redo
 -- Working with files
 set("n", "QQ", ":qa<enter>", { noremap = false }) -- Quit all
 set({ "n", "i" }, "WW", "<esc>:w!<enter>", { noremap = false }) -- Quick save
-
--- Keep window centered when going up/down
--- set("n", "<C-d>", "<C-d>zz", { noremap = false })
--- set("n", "<C-u>", "<C-u>zz", { noremap = false })
--- set("n", "n", "nzzzv", { noremap = false })
--- set("n", "N", "Nzzzv", { noremap = false })
 
 -- Window management --
 set("n", "<leader>sv", "<C-w>v", { desc = "Split window vertically" })
@@ -51,12 +45,13 @@ set(
 set("v", "<", "<gv")
 set("v", ">", ">gv")
 
--- Move block
-set("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move Block Down" })
-set("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move Block Up" })
-
 -- Oil
 set("n", "-", "<CMD>Oil --float<CR>", { desc = "Open parent directory" })
+
+-- Twilight
+set("n", "<leader>ut", function()
+  vim.cmd("Twilight")
+end, { desc = "Toggle Twilight" })
 
 -- Source file
 set("n", "<leader>%", function()

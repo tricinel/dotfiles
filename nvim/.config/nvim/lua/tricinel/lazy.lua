@@ -31,9 +31,13 @@ require("lazy").setup({
     frequency = 86400, -- check once a day
   }, -- automatically check for plugin updates
   performance = {
+    cache = {
+      enabled = true,
+    },
     rtp = {
       disabled_plugins = {
         "gzip",
+        "rplugin",
         "tarPlugin",
         "tohtml",
         "tutor",
