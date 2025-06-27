@@ -7,6 +7,7 @@ return {
       "http",
       "regex",
       "dockerfile",
+      "rust",
     })
   end,
 }
