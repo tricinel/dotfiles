@@ -23,6 +23,7 @@ BREW_APPS=(
     fd
     eza
     zoxide
+    fnm
 )
 
 STOW_FOLDERS=(
@@ -60,12 +61,6 @@ install_brew_apps() {
 }
 
 install_standalone_apps() {
-    # nvm
-    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-    # install Node LTS and set it as default
-    [ -s "$HOME/.nvm/nvm.sh" ] && \. "$HOME/.nvm/nvm.sh"
-    nvm alias default node
-
     # install pnpm
     corepack enable
     # https://pnpm.io/installation#using-corepac
@@ -107,6 +102,15 @@ stow_files() {
     done
 }
 
+cleanup () {
+  if [[ -d ~/.nvm ]]; then
+    echo "Removing ~/.nvm..."
+    rm -rf ~/.nvm
+  else
+    echo "~/.nvm does not exist, skipping."
+  fi
+}
+
 echo ''
 echo '==> Starting setup...'
 
@@ -116,6 +120,7 @@ backup
 install_standalone_apps
 stow_files
 configure_apps
+cleanup
 
 echo ''
 echo '==> All done!'

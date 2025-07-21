@@ -51,32 +51,10 @@ done
 
 unset config_files
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# fnm setup
+eval "$(fnm env --use-on-cd --shell zsh)"
 
-# place this after nvm initialization!
-autoload -U add-zsh-hook
-load-nvmrc() {
-  [[ -e .nvmrc ]] || return
-  local node_version="$(nvm version)"
-  local nvmrc_path="$(nvm_find_nvmrc)"
-
-  if [ -n "$nvmrc_path" ]; then
-    local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
-
-    if [ "$nvmrc_node_version" = "N/A" ]; then
-      nvm install
-    elif [ "$nvmrc_node_version" != "$node_version" ]; then
-      nvm use
-    fi
-  elif [ "$node_version" != "$(nvm version default)" ]; then
-    echo "Reverting to nvm default version"
-    nvm use default
-  fi
-}
-add-zsh-hook chpwd load-nvmrc
-load-nvmrc
-
+# starship setup
 eval "$(starship init zsh)"
 
 # fzf fuzzy finder
@@ -90,3 +68,6 @@ export PNPM_HOME="/Users/tricinel/Library/pnpm"
 export PATH="$PNPM_HOME:$CARGO_PATH:$PATH"
 export SSH_AUTH_SOCK=$($HOMEBREW_BIN/gpgconf --list-dirs agent-ssh-socket)
 export EDITOR="$HOMEBREW_BIN/nvim"
+
+# for profiling zsh
+# zprof
