@@ -87,4 +87,5 @@ $RECYCLE.BIN/
 
 lazy-lock.json
 
-nvim/.config/nvim/lua/local/
+nvim/.config/nvim/lua/local/*
+!nvim/.config/nvim/lua/local/init.lua

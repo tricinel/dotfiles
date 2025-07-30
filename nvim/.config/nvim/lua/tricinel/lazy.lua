@@ -20,6 +20,8 @@ require("lazy").setup({
     { "LazyVim/LazyVim", import = "lazyvim.plugins" },
     -- import/override with your plugins
     { import = "tricinel.plugins" },
+    -- import any local plguins here
+    { import = "local" },
   },
   defaults = {
     lazy = false,
