@@ -1,7 +1,7 @@
 # for profiling zsh
 # zmodload zsh/zprof
 
-export ZDOTDIR=$HOME/.config/zsh
+export ZSHDOTDIR=$HOME/.config/zsh
 export STARSHIP_CONFIG=~/starship.toml
 
 # some useful options (man zshoptions)
