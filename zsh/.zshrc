@@ -69,5 +69,8 @@ export PATH="$PNPM_HOME:$CARGO_PATH:$PATH"
 export SSH_AUTH_SOCK=$($HOMEBREW_BIN/gpgconf --list-dirs agent-ssh-socket)
 export EDITOR="$HOMEBREW_BIN/nvim"
 
+# fix zsh-vi-mode plugin interfering with fzf keybindings
+zvm_after_init_commands+=('source <(fzf --zsh)')
+
 # for profiling zsh
 # zprof
