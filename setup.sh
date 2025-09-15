@@ -23,6 +23,7 @@ BREW_APPS=(
     fd
     eza
     zoxide
+    carapace
     fnm
 )
 

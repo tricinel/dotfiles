@@ -69,6 +69,10 @@ export PATH="$PNPM_HOME:$CARGO_PATH:$PATH"
 export SSH_AUTH_SOCK=$($HOMEBREW_BIN/gpgconf --list-dirs agent-ssh-socket)
 export EDITOR="$HOMEBREW_BIN/nvim"
 
+export CARAPACE_BRIDGES='zsh,bash,inshellisense' # optional
+zstyle ':completion:*' format $'\e[2;37mCompleting %d\e[m'
+source <(carapace _carapace)
+
 # fix zsh-vi-mode plugin interfering with fzf keybindings
 zvm_after_init_commands+=('source <(fzf --zsh)')
 
