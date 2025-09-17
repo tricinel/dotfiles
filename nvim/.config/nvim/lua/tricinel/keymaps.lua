@@ -32,7 +32,6 @@ set("n", "<leader>sx", "<cmd>close<CR>", { desc = "Close current split" })
 -- Working with buffers
 set("n", "<S-DOWN>", ":blast<enter>", { noremap = false })
 set("n", "<S-UP>", ":bfirst<enter>", { noremap = false })
-set("n", "<S-BACKSPACE>", ":bdelete<enter>", { noremap = false })
 set("n", "<S-CR>", "<cmd>e #<cr>", { desc = "Alternate buffer" })
 set(
   "n",
