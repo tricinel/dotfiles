@@ -39,6 +39,7 @@ set(
   [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]],
   { desc = "Replace word cursor is on in current buffer" }
 )
+set("n", "gm", "m", { desc = "Replace m in marks", remap = true })
 
 -- Stay in indent mode
 set("v", "<", "<gv")
