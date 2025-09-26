@@ -1,39 +1,44 @@
 #!/usr/bin/env zsh
 
 BREW_APPS=(
-    zsh
-    git
-    gpg
-    bat
-    httpie
-    curlie
-    ncdu
-    starship
-    tealdeer
-    fzf
-    rust
-    rustfmt
-    rust-analyzer
-    stow
-    git-delta
-    difftastic
-    neovim
-    lazygit
-    ripgrep
-    fd
-    eza
-    zoxide
-    carapace
-    fnm
+  zsh
+  git
+  gpg
+  bat
+  httpie
+  curlie
+  ncdu
+  starship
+  tealdeer
+  fzf
+  rust
+  rustfmt
+  rust-analyzer
+  go
+  stow
+  git-delta
+  difftastic
+  neovim
+  lazygit
+  ripgrep
+  fd
+  eza
+  zoxide
+  carapace
+  fnm
+)
+
+BREW_UTILS=(
+  tree-sitter-cli
 )
 
 STOW_FOLDERS=(
-    ghostty
-    git
-    nvim
-    starship
-    warp
-    zsh
+  ghostty
+  git
+  nvim
+  starship
+  warp
+  zsh
 )
 
 install_homebrew() {
@@ -57,50 +62,53 @@ install_brew_apps() {
 
   # install ghostty
   brew install --cask ghostty
+}
 
-	brew cleanup
+install_brew_utils() {
+  echo "installing brew utils..."
+  brew install ${BREW_UTILS[@]}
 }
 
 install_standalone_apps() {
-    # install pnpm
-    corepack enable
-    # https://pnpm.io/installation#using-corepac
-    corepack prepare pnpm@latest --activate
+  # install pnpm
+  corepack enable
+  # https://pnpm.io/installation#using-corepac
+  corepack prepare pnpm@latest --activate
 }
 
 backup () {
-    # nvim
-    mv ~/.config/nvim{,.bak} # nvim
-    
-    # Warp
-    mv ~/.warp{_bak} .warp_backup # .warp
-    
-    # zsh
-    mv ~/.zshenv{.bak}
-    mv ~/.zshrc{.bak}
+  # nvim
+  mv ~/.config/nvim{,.bak} # nvim
 
-    # git
-    mv ~/.gitconfig{.bak}
+  # Warp
+  mv ~/.warp{_bak} .warp_backup # .warp
 
-    # Ghostty
-    mv ~/.config/ghostty{.bak}
+  # zsh
+  mv ~/.zshenv{.bak}
+  mv ~/.zshrc{.bak}
+
+  # git
+  mv ~/.gitconfig{.bak}
+
+  # Ghostty
+  mv ~/.config/ghostty{.bak}
 }
 
 configure_apps() {
-	  echo "configuring apps..."
-    # zsh
-    mkdir -p $HOME/.config/zsh
-    # fzf
-    $(brew --prefix)/opt/fzf/install --key-bindings --completion --no-update-rc --no-bash --no-fish
+	echo "configuring apps..."
+  # zsh
+  mkdir -p $HOME/.config/zsh
+  # fzf
+  $(brew --prefix)/opt/fzf/install --key-bindings --completion --no-update-rc --no-bash --no-fish
 }
 
 stow_files() {
-    echo "stowing things..."
-    for folder in $STOW_FOLDERS
-    do
-        echo "stowing $folder"
-        stow --restow $folder
-    done
+  echo "stowing things..."
+  for folder in $STOW_FOLDERS
+  do
+    echo "stowing $folder"
+    stow --restow $folder
+  done
 }
 
 cleanup () {
@@ -117,6 +125,8 @@ echo '==> Starting setup...'
 
 install_homebrew
 install_brew_apps
+install_brew_utils
+brew cleanup
 backup
 install_standalone_apps
 stow_files
