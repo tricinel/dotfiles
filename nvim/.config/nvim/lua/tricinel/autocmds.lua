@@ -60,6 +60,7 @@ vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
     vim.diagnostic.open_float(nil, {
       focus = false,
       border = "rounded",
+      close_events = { "CursorMoved", "CursorMovedI", "BufHidden", "InsertCharPre", "WinScrolled" },
     })
   end,
 })
