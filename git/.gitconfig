@@ -9,13 +9,14 @@
 	context = 10
 	colorMoved = plain
   renames = true
+  external = difft
 [difftoll]
 	prompt = false
-	cmd = /usr/local/bin/icdiff --line-numbers $LOCAL $REMOTE
+  cmd = /usr/local/bin/icdiff --line-numbers $LOCAL $REMOTE
 [difftool]
 	prompt = false
 [difftool "difftastic"]
-	cmd = difft "$LOCAL" "$REMOTE"
+  cmd = difft "$MERGED" "$LOCAL" "abcdef1" "100644" "$REMOTE" "abcdef2" "100644"
 [pager]
 	difftool = true
 [push]
