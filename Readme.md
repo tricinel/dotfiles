@@ -16,7 +16,7 @@ This will do a couple of things:
 
 - Install `zsh`, the `starship prompt` and a couple of other `brew` goodies. See the `setup.sh` file for all the packages that will be installed.
 - Symlink the appropriate files in `.dotfiles` to your home directory. Everything is configured and tweaked within `~/.dotfiles`. We do this using [stow](https://www.gnu.org/software/stow/).
-- Symlink the configs for nvim, ghostty, warp and git
+- Symlink the configs for nvim, ghostty and git
 
 ### Private config
 

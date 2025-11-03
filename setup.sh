@@ -37,7 +37,6 @@ STOW_FOLDERS=(
   git
   nvim
   starship
-  warp
   zsh
 )
 
@@ -79,9 +78,6 @@ install_standalone_apps() {
 backup () {
   # nvim
   mv ~/.config/nvim{,.bak} # nvim
-
-  # Warp
-  mv ~/.warp{_bak} .warp_backup # .warp
 
   # zsh
   mv ~/.zshenv{.bak}
