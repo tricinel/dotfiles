@@ -1,3 +1,18 @@
 db_path = "~/.local/share/atuin/history.db"
 auto_sync = false
 style = "full"
+show_help = false
+inline_height = 32
+exit_mode = "return-query"
+filter_mode = "host"
+keymap_mode = "vim-normal"
+keymap_cursor = { vim_insert = "blink-block", vim_normal = "steady-block" }
+filters = ["host", "session", "directory"]
+
+[keys]
+scroll_exits = false
+accept_with_backspace = true
+
+[ui]
+
+columns = ["time", "command"]
