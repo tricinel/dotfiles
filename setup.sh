@@ -40,6 +40,7 @@ STOW_FOLDERS=(
   nvim
   starship
   zsh
+  nvim12
 )
 
 install_homebrew() {
@@ -118,20 +119,44 @@ cleanup () {
   fi
 }
 
-echo ''
-echo '==> Starting setup...'
+setup_nvim12() {
+  local DIR="$HOME/nvim-0.12"
 
-install_homebrew
-install_brew_apps
-install_brew_utils
-brew cleanup
-backup
-install_standalone_apps
-stow_files
-configure_apps
-cleanup
+  mkdir -p "$DIR"
+  curl -L https://github.com/neovim/neovim/releases/download/nightly/nvim-macos-arm64.tar.gz -o "$DIR/nvim.tar.gz"
+  tar -xzf "$DIR/nvim.tar.gz" -C "$DIR" --strip-components 1
+  rm "$DIR/nvim.tar.gz"
+}
 
-echo ''
-echo '==> All done!'
-echo '==> Close and reopen your terminal to start using everything.'
-echo '==> Happy hacking!'
+run_all() {
+  echo ''
+  echo '==> Starting setup...'
+
+  install_homebrew
+  install_brew_apps
+  install_brew_utils
+  brew cleanup
+  backup
+  install_standalone_apps
+  stow_files
+  configure_apps
+  cleanup
+
+  echo ''
+  echo '==> All done!'
+  echo '==> Close and reopen your terminal to start using everything.'
+  echo '==> Happy hacking!'
+}
+
+if [ -n "$1" ]; then
+  # Check if the argument is a defined function
+  if declare -f "$1" > /dev/null; then
+    "$@" # Run the specific function (and pass any extra args)
+  else
+    echo "Error: Function '$1' not found."
+    exit 1
+  fi
+else
+  # No arguments provided, run the full script
+  run_all
+fi

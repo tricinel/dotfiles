@@ -1,0 +1,12 @@
+vim.pack.add({
+	-- Setup autotag to automatically close and rename matching tags
+	"https://github.com/windwp/nvim-ts-autotag",
+})
+
+require("nvim-ts-autotag").setup({
+	opts = {
+		enable_close = true, -- Auto close tags
+		enable_rename = true, -- Auto rename pairs of tags
+		enable_close_on_slash = false, -- Don't auto close on trailing </
+	},
+})
