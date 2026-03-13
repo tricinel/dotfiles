@@ -76,5 +76,8 @@ source <(carapace _carapace)
 # fix zsh-vi-mode plugin interfering with fzf keybindings
 zvm_after_init_commands+=('source <(fzf --zsh)')
 
+# load atuin
+eval "$(atuin init zsh)"
+
 # for profiling zsh
 # zprof

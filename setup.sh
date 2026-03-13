@@ -26,6 +26,7 @@ BREW_APPS=(
   zoxide
   carapace
   fnm
+  atuin
 )
 
 BREW_UTILS=(
@@ -33,6 +34,7 @@ BREW_UTILS=(
 )
 
 STOW_FOLDERS=(
+  atuin
   ghostty
   git
   nvim

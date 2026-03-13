@@ -1,0 +1,3 @@
+db_path = "~/.local/share/atuin/history.db"
+auto_sync = false
+style = "full"
