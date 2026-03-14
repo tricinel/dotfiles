@@ -73,7 +73,6 @@ opt.encoding = "UTF-8"                                         -- Set encoding
 opt.jumpoptions = "view"                                       -- Restore scrolloff + cursor position
 opt.laststatus = 3                                             -- global statusline
 opt.smoothscroll = true                                        -- Smooth animated scrolling instead of jumping line-by-line
-opt.wildmode = "longest:full,full"                             -- Command-line completion mode
 
 -- Buffer settings
 opt.inccommand = "nosplit" -- preview incremental substitute
@@ -114,6 +113,11 @@ vim.diagnostic.config({
   update_in_insert = false, -- Don't distract while typing
   severity_sort = true,
 })
+
+-- Command-line completion
+opt.wildmenu = true
+opt.wildmode = "longest:full,full"
+opt.wildignore:append({ "*.o", "*.obj", "*.pyc", "*.class", "*.jar" })
 
 -- Replace default grep with ripgrep
 opt.grepformat = "%f:%l:%c:%m"

@@ -35,6 +35,7 @@ require("yanky").setup({
 })
 
 vim.keymap.set("n", "Y", "y$", { desc = "Yank to end of line" })
+vim.keymap.set("n", "yf", "<cmd>%y+<cr>", { desc = "Yank whole file" })
 vim.keymap.set({ "n", "x" }, "p", "<Plug>(YankyPutAfter)", { desc = "Put yanked text after cursor" })
 vim.keymap.set({ "n", "x", }, "P", "<Plug>(YankyPutBefore)", { desc = "Put yanked text before cursor" })
 vim.keymap.set({ "n", "x" }, "<leader>sy", "<cmd>YankyRingHistory<cr>", { desc = "Open Yank History" })

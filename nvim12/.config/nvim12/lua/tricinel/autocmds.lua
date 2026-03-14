@@ -27,6 +27,7 @@ vim.api.nvim_create_autocmd("VimResized", {
   end,
 })
 
+-- Setup LSP keymaps and close floating windows on <esc>
 vim.api.nvim_create_autocmd("LspAttach", {
   group = augroup,
   callback = function(args)
@@ -58,10 +59,46 @@ vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
   end,
 })
 
+-- Start treesitter/highlight for markdown files
 vim.api.nvim_create_autocmd("FileType", {
   group = augroup,
   pattern = "markdown",
   callback = function()
     vim.treesitter.start()
+  end,
+})
+
+-- Close some filetypes with <q>
+vim.api.nvim_create_autocmd("FileType", {
+  group = augroup,
+  pattern = {
+    "checkhealth",
+    "gitsigns-blame",
+    "grug-far",
+    "help",
+    "lspinfo",
+    "startuptime",
+  },
+  callback = function(event)
+    vim.bo[event.buf].buflisted = false
+    vim.schedule(function()
+      vim.keymap.set("n", "q", function()
+        vim.cmd("close")
+        pcall(vim.api.nvim_buf_delete, event.buf, { force = true })
+      end, {
+        buffer = event.buf,
+        silent = true,
+        desc = "Quit buffer",
+      })
+    end)
+  end,
+})
+
+-- Set filetype for .env and .env.* files
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  group = augroup,
+  pattern = { "*.env", ".env.*" },
+  callback = function()
+    vim.opt_local.filetype = "sh"
   end,
 })

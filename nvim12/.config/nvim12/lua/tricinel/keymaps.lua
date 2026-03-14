@@ -7,7 +7,7 @@ map("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear highlights on search wh
 
 vim.keymap.set("n", "<leader>qd", function() require("persistence").stop() end, { desc = "Don't save current session" })
 map("n", "<leader>qq", ":qa<enter>", { noremap = false, desc = "Quit all" })
-map({ "n", "i" }, "<C-s>", "<esc>:w!<enter>", { noremap = false, desc = "Quick save" })
+map({ "i", "x", "n", "s" }, "<C-s>", "<esc>:w!<enter>", { noremap = false, desc = "Quick save" })
 
 -- Center screen when jumping
 map("n", "n", "nzzzv", { desc = "Next search result (centered)" })
