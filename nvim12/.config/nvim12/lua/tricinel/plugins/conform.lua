@@ -1,9 +1,9 @@
 vim.pack.add({
-	-- Handles running formatters like Biome, Prettier, gofmt
+	-- Handles running formatters like oxfmt, Prettier, gofmt
 	"https://github.com/stevearc/conform.nvim",
 })
 
-local formatters = { "biome", "prettierd", "prettier", stop_after_first = true }
+local formatters = { "oxfmt", "prettierd", "prettier", stop_after_first = true }
 
 require("conform").setup({
 	formatters_by_ft = {
@@ -18,8 +18,8 @@ require("conform").setup({
 	},
 
 	formatters = {
-		-- Biome: only run if biome.json exists in project root
-		biome = {
+		-- oxfmt: only run if running inside a project
+		oxfmt = {
 			require_cwd = true,
 		},
 

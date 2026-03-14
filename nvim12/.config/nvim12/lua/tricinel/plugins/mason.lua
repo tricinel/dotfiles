@@ -26,6 +26,21 @@ vim.lsp.config("ts_ls", {
   root_markers = { "package.json", "tsconfig.json", "jsconfig.json" },
 })
 
+-- Oxc (formatting + linting via LSP mode)
+vim.lsp.config("oxfmt", {
+  capabilities = capabilities,
+  cmd = { "oxfmt", "--lsp" },
+  filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+  root_markers = { "package.json", "tsconfig.json", "jsconfig.json", ".git" },
+})
+
+vim.lsp.config("oxlint", {
+  capabilities = capabilities,
+  cmd = { "oxlint", "--lsp" },
+  filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
+  root_markers = { "package.json", "tsconfig.json", "jsconfig.json", ".git" },
+})
+
 -- HTML
 vim.lsp.config("html", {
   capabilities = capabilities,
@@ -102,6 +117,8 @@ vim.lsp.config("marksman", {
 require("mason-lspconfig").setup({
   ensure_installed = {
     "ts_ls",
+    "oxfmt",
+    "oxlint",
     "html",
     "cssls",
     "tailwindcss",

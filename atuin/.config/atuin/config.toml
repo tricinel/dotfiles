@@ -14,5 +14,4 @@ scroll_exits = false
 accept_with_backspace = true
 
 [ui]
-
 columns = ["time", "command"]
