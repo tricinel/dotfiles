@@ -79,5 +79,8 @@ zvm_after_init_commands+=('source <(fzf --zsh)')
 # load atuin
 eval "$(atuin init zsh)"
 
+# load worktrunk completions
+if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
+
 # for profiling zsh
 # zprof

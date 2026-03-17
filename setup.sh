@@ -27,6 +27,7 @@ BREW_APPS=(
   carapace
   fnm
   atuin
+  worktrunk
 )
 
 BREW_UTILS=(
