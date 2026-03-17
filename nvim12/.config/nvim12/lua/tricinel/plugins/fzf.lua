@@ -12,7 +12,7 @@ require('fzf-lua').register_ui_select()
 
 vim.keymap.set("n", "<leader>ff", "<cmd>FzfLua files<cr>", { desc = "Files" })
 vim.keymap.set("n", "<leader>fg", "<cmd>FzfLua git_files<cr>", { desc = "Git files" })
-vim.keymap.set("n", "<leader>f/", "<cmd>FzfLua live_grep<cr>", { desc = "Text" })
+vim.keymap.set("n", "<leader>ss", "<cmd>FzfLua live_grep<cr>", { desc = "Text" })
 vim.keymap.set("n", "<leader>fb", "<cmd>FzfLua buffers sort_mru=true sort_lastused=true<cr>", { desc = "Open buffers" })
 vim.keymap.set("n", "<leader>fo", "<cmd>FzfLua history<cr>", { desc = "Recent/open files" })
 vim.keymap.set("n", "<leader>sh", "<cmd>FzfLua search_history<cr>", { desc = "Search history" })
