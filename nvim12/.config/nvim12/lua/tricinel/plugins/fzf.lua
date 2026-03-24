@@ -17,7 +17,7 @@ vim.keymap.set("n", "<leader>fb", "<cmd>FzfLua buffers sort_mru=true sort_lastus
 vim.keymap.set("n", "<leader>fo", "<cmd>FzfLua history<cr>", { desc = "Recent/open files" })
 vim.keymap.set("n", "<leader>sh", "<cmd>FzfLua search_history<cr>", { desc = "Search history" })
 vim.keymap.set("n", "<leader>fm", "<cmd>FzfLua marks<cr>", { desc = "Marks" })
-vim.keymap.set("n", "<leader>fr", "<cmd>FzfLua live_grep_resume<cr>", { desc = "Resume previous search" })
+vim.keymap.set("n", "<leader>fr", "<cmd>FzfLua live_grep resume=true<cr>", { desc = "Resume previous search" })
 vim.keymap.set("n", "<leader>sk", "<cmd>FzfLua keymaps<cr>", { desc = "Keymaps" })
 
 -- Search all lines that contain TODO or FIX or FIXME followed by the search query
