@@ -39,6 +39,8 @@ vim.keymap.set("n", "yf", "<cmd>%y+<cr>", { desc = "Yank whole file" })
 vim.keymap.set({ "n", "x" }, "p", "<Plug>(YankyPutAfter)", { desc = "Put yanked text after cursor" })
 vim.keymap.set({ "n", "x", }, "P", "<Plug>(YankyPutBefore)", { desc = "Put yanked text before cursor" })
 vim.keymap.set({ "n", "x" }, "<leader>sy", "<cmd>YankyRingHistory<cr>", { desc = "Open Yank History" })
+vim.keymap.set("n", "<c-p>", "<Plug>(YankyPreviousEntry)")
+vim.keymap.set("n", "<c-n>", "<Plug>(YankyNextEntry)")
 
 local augroup = vim.api.nvim_create_augroup("UserConfig", {})
 
