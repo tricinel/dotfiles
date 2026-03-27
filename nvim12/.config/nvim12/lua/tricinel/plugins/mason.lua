@@ -129,4 +129,4 @@ require("mason-lspconfig").setup({
   },
 })
 
-vim.keymap.set("n", "<leader>cm", "<cmd>Mason<cr>", { desc = "Mason" })
+vim.keymap.set("n", "<leader>vm", "<cmd>Mason<cr>", { desc = "Mason" })
