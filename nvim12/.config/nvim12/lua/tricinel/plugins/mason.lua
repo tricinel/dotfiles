@@ -62,7 +62,7 @@ vim.lsp.config("tailwindcss", {
   capabilities = capabilities,
   cmd = { "tailwindcss-language-server", "--stdio" },
   filetypes = { "html", "css", "javascript", "javascriptreact", "typescript", "typescriptreact" },
-  root_markers = { "tailwind.config.js", "tailwind.config.ts" },
+  root_markers = { "tailwind.config.js", "tailwind.config.ts", ".git" },
 })
 
 -- Go
