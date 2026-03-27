@@ -81,29 +81,27 @@ map("n", "yd", function()
 end, { desc = "[P]Yank line and diagnostic to system clipboard" })
 
 -- Toggle LSP diagnostics floating window
-map("n", "<leader>ue", function()
-  local float_diag = false
+map("n", "<leader>xw", function()
+  -- Set the buffer-local suppression flag
+  vim.b.diagnostics_suppressed = true
 
-  -- Iterate all windows to find an existing diagnostic float
-  for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
-    if vim.api.nvim_win_get_config(win).zindex then -- floating window
-      local buf = vim.api.nvim_win_get_buf(win)
-      if vim.bo[buf].buftype == "nofile" then
-        -- Likely a diagnostic float
-        vim.api.nvim_win_close(win, true)
-        float_diag = true
-      end
+  -- Immediately close any existing floating windows
+  for _, win in ipairs(vim.api.nvim_list_wins()) do
+    local config = vim.api.nvim_win_get_config(win)
+    if config.relative ~= "" then
+      vim.api.nvim_win_close(win, true)
     end
   end
 
-  -- If no float was open, create a new one
-  if not float_diag then
-    vim.diagnostic.open_float(nil, {
-      focus = false,
-      border = "rounded",
-    })
-  end
-end, { desc = "Toggle diagnostic floating window" })
+  -- Create a one-time autocmd to re-enable when the cursor moves
+  vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+    buffer = 0,
+    once = true, -- Delete this autocmd after it runs once
+    callback = function()
+      vim.b.diagnostics_suppressed = false
+    end,
+  })
+end, { desc = "Hide diagnostic float until cursor moves" })
 
 -- These may be opinionated, but I don't want to always cut
 -- Smarter dd

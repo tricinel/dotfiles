@@ -47,10 +47,14 @@ vim.api.nvim_create_autocmd("LspAttach", {
   end,
 })
 
--- Show LSP diagnostics in a hover window
+-- Show LSP diagnostics in a hover window if not explicitly suppressed for this buffer
 vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
   group = augroup,
   callback = function()
+    if vim.b.diagnostics_suppressed then
+      return
+    end
+
     vim.diagnostic.open_float(nil, {
       focus = false,
       border = "rounded",
