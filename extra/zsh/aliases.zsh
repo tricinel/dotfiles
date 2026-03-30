@@ -100,5 +100,3 @@ alias ltree="eza --tree --level=2 --icons --git"
 # Lazygit
 alias lg="lazygit"
 
-# nvim12
-alias nvim12='NVIM_APPNAME=nvim12 ~/nvim-0.12/bin/nvim'

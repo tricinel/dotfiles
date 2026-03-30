@@ -41,7 +41,6 @@ STOW_FOLDERS=(
   nvim
   starship
   zsh
-  nvim12
 )
 
 install_homebrew() {
@@ -118,15 +117,6 @@ cleanup () {
   else
     echo "~/.nvm does not exist, skipping."
   fi
-}
-
-setup_nvim12() {
-  local DIR="$HOME/nvim-0.12"
-
-  mkdir -p "$DIR"
-  curl -L https://github.com/neovim/neovim/releases/download/nightly/nvim-macos-arm64.tar.gz -o "$DIR/nvim.tar.gz"
-  tar -xzf "$DIR/nvim.tar.gz" -C "$DIR" --strip-components 1
-  rm "$DIR/nvim.tar.gz"
 }
 
 run_all() {
