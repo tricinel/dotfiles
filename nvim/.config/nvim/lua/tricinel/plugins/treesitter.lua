@@ -1,38 +1,40 @@
 vim.pack.add({
-	-- Provides accurate, AST-based syntax highlighting and code understanding
-	"https://github.com/nvim-treesitter/nvim-treesitter",
+  -- Provides accurate, AST-based syntax highlighting and code understanding
+  "https://github.com/nvim-treesitter/nvim-treesitter",
 })
 
-require("nvim-treesitter").setup({
-	-- Auto-install parsers for these languages when opening files
-	ensure_installed = {
-		"typescript",
-		"tsx",
-		"javascript",
-		"html",
-		"css",
-		"go",
-		"lua",
-		"dockerfile",
-		"json5",
-	},
+local treesitter = require("nvim-treesitter")
 
-	-- Install parsers synchronously (block until installed)
-	sync_install = false,
+-- nvim-treesitter (main branch is a new rewrite) only manages parsers and queries;
+-- highlighting is started via Neovim (`vim.treesitter.start()`).
+treesitter.setup({
+  install_dir = vim.fn.stdpath("data") .. "/site",
+})
 
-	-- Automatically install missing parsers when entering buffer
-	auto_install = true,
+local languages = {
+  "typescript",
+  "tsx",
+  "javascript",
+  "html",
+  "css",
+  "go",
+  "lua",
+  "dockerfile",
+  "json5",
+  "markdown",
+  "markdown_inline",
+}
 
-	-- Enable Treesitter-based syntax highlighting
-	highlight = {
-		enable = true,
-		-- Set this to true if you depend on 'syntax' being enabled
-		-- Using this option may slow down your editor, and you may see some duplicate highlights
-		additional_vim_regex_highlighting = false,
-	},
+-- Best-effort background install (no-op if already installed).
+treesitter.install(languages)
 
-	-- Enable Treesitter-based indentation
-	indent = {
-		enable = true,
-	},
+-- Enable syntax highlighting everywhere there is a parser
+vim.api.nvim_create_autocmd("FileType", {
+  group = vim.api.nvim_create_augroup("tricinel-treesitter", { clear = true }),
+  callback = function(args)
+    if not pcall(vim.treesitter.get_parser, args.buf) then
+      return
+    end
+    pcall(vim.treesitter.start, args.buf)
+  end,
 })
