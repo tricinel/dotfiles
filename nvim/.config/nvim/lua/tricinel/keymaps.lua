@@ -3,7 +3,7 @@ local map = vim.keymap.set
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
-map("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear highlights on search when pressing <Esc>" })
+map("n", "<Esc>", "<cmd>nohlsearch<cr>", { desc = "Clear highlights on search when pressing <Esc>" })
 
 map("n", "<leader>vr", "<cmd>restart<cr>", { desc = "Restart" })
 
@@ -21,7 +21,7 @@ map("n", "<C-u>", "<C-u>zz", { desc = "Half page up (centered)" })
 map("n", "<S-DOWN>", ":blast<enter>", { noremap = false })
 map("n", "<S-UP>", ":bfirst<enter>", { noremap = false })
 map("n", "<S-CR>", "<cmd>e #<cr>", { desc = "Alternate buffer" })
-map("n", "<S-x>", "<cmd>bdelete<cr>", { desc = "Close Buffer" })
+map("n", "<S-x>", "<cmd>bdelete!<cr>", { desc = "Close buffer" })
 map(
   "n",
   "<leader>br",
@@ -32,9 +32,9 @@ map(
 -- Better window navigation
 map("n", "<C-h>", "<C-w>h", { desc = "Move to left window" })
 map("n", "<C-l>", "<C-w>l", { desc = "Move to right window" })
-map("n", "<leader>uv", ":vsplit<CR>", { desc = "Split window vertically" })
-map("n", "<C-Left>", ":vertical resize -2<CR>", { desc = "Decrease window width" })
-map("n", "<C-Right>", ":vertical resize +2<CR>", { desc = "Increase window width" })
+map("n", "<leader>uv", ":vsplit<cr>", { desc = "Split window vertically" })
+map("n", "<C-Left>", ":vertical resize -2<cr>", { desc = "Decrease window width" })
+map("n", "<C-Right>", ":vertical resize +2<cr>", { desc = "Increase window width" })
 
 -- Move lines up/down
 map("n", "<A-j>", ":m .+1<CR>==", { desc = "Move line down" })
@@ -123,12 +123,12 @@ vim.keymap.set({ "n", "v" }, "s", '"_s', { desc = "Substitute without yanking" }
 
 -- Searching
 -- https://github.com/mhinz/vim-galore#saner-behavior-of-n-and-n
-map("n", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "Next Search Result" })
-map("x", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next Search Result" })
-map("o", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next Search Result" })
-map("n", "N", "'nN'[v:searchforward].'zv'", { expr = true, desc = "Prev Search Result" })
-map("x", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev Search Result" })
-map("o", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev Search Result" })
+map("n", "n", "'Nn'[v:searchforward].'zv'", { expr = true, desc = "Next search result" })
+map("x", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
+map("o", "n", "'Nn'[v:searchforward]", { expr = true, desc = "Next search result" })
+map("n", "N", "'nN'[v:searchforward].'zv'", { expr = true, desc = "Prev search result" })
+map("x", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
+map("o", "N", "'nN'[v:searchforward]", { expr = true, desc = "Prev search result" })
 
 -- Add undo break-points
 map("i", ",", ",<c-g>u")
@@ -162,3 +162,30 @@ local function pack_clean()
 end
 
 map("n", "<leader>vc", pack_clean, { desc = "Pack Clean: Delete unused plugins" })
+
+-- Floating terminal
+local function open_floating_terminal()
+  local width = math.floor(vim.o.columns * 0.8)
+  local height = math.floor(vim.o.lines * 0.8)
+  local row = math.floor((vim.o.lines - height) / 2)
+  local col = math.floor((vim.o.columns - width) / 2)
+
+  local buf = vim.api.nvim_create_buf(false, true)
+
+  local opts = {
+    relative = 'editor',
+    row = row,
+    col = col,
+    width = width,
+    height = height,
+    style = 'minimal',
+    border = 'rounded'
+  }
+
+  vim.api.nvim_open_win(buf, true, opts)
+  vim.cmd('terminal')
+  vim.cmd('startinsert')
+end
+
+map("n", "<leader>vt", open_floating_terminal, { desc = "Floating terminal" })
+map("t", "<esc>", [[<C-\><C-n>]], { desc = "Exit terminal mode" })
