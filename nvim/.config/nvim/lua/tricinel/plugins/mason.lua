@@ -129,4 +129,6 @@ require("mason-lspconfig").setup({
   },
 })
 
+vim.lsp.document_color.enable(true, nil, { style = 'virtual' })
+
 vim.keymap.set("n", "<leader>vm", "<cmd>Mason<cr>", { desc = "Mason" })
