@@ -5,7 +5,9 @@ vim.g.maplocalleader = " "
 
 map("n", "<Esc>", "<cmd>nohlsearch<CR>", { desc = "Clear highlights on search when pressing <Esc>" })
 
-vim.keymap.set("n", "<leader>qd", function() require("persistence").stop() end, { desc = "Don't save current session" })
+map("n", "<leader>vr", "<cmd>restart<cr>", { desc = "Restart" })
+
+map("n", "<leader>qd", function() require("persistence").stop() end, { desc = "Don't save current session" })
 map("n", "<leader>qq", ":qa<enter>", { noremap = false, desc = "Quit all" })
 map({ "i", "x", "n", "s" }, "<C-s>", "<esc>:w!<enter>", { noremap = false, desc = "Quick save" })
 
@@ -159,4 +161,4 @@ local function pack_clean()
   end
 end
 
-map('n', '<leader>vc', pack_clean, { desc = "Pack Clean: Delete unused plugins" })
+map("n", "<leader>vc", pack_clean, { desc = "Pack Clean: Delete unused plugins" })
