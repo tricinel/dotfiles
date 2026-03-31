@@ -106,3 +106,11 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
     vim.opt_local.filetype = "sh"
   end,
 })
+
+-- Set the clipboard sync with the OS on UIEnter
+vim.api.nvim_create_autocmd("UIEnter", {
+  group = augroup,
+  callback = function()
+    vim.opt.clipboard = "unnamedplus"
+  end,
+})

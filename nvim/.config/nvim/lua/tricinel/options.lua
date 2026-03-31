@@ -23,6 +23,7 @@ opt.hlsearch = false  -- Don't highlight search results
 opt.incsearch = true  -- Show matches as you type
 
 -- Visual settings
+opt.background = "dark"                       -- Set background to dark
 opt.termguicolors = true                      -- Enable 24-bit colors
 opt.signcolumn = "auto:1-3"                   -- Always show sign column
 opt.colorcolumn = "100"                       -- Show column at 100 characters
@@ -60,19 +61,18 @@ opt.autoread = true                           -- Auto reload files changed outsi
 opt.autowrite = false                         -- Don't auto save
 
 -- Behavior settings
-opt.errorbells = false                                         -- No error bells
-opt.backspace = "indent,eol,start"                             -- Better backspace behavior
-opt.autochdir = false                                          -- Don't auto change directory
-opt.iskeyword:append("-")                                      -- Treat dash as part of word
-opt.path:append("**")                                          -- include subdirectories in search
-opt.selection = "exclusive"                                    -- Selection behavior
-opt.mouse = "a"                                                -- Enable mouse support
-opt.clipboard = vim.env.SSH_CONNECTION and "" or "unnamedplus" -- Sync with system clipboard
-opt.modifiable = true                                          -- Allow buffer modifications
-opt.encoding = "UTF-8"                                         -- Set encoding
-opt.jumpoptions = "view"                                       -- Restore scrolloff + cursor position
-opt.laststatus = 3                                             -- global statusline
-opt.smoothscroll = true                                        -- Smooth animated scrolling instead of jumping line-by-line
+opt.errorbells = false             -- No error bells
+opt.backspace = "indent,eol,start" -- Better backspace behavior
+opt.autochdir = false              -- Don't auto change directory
+opt.iskeyword:append("-")          -- Treat dash as part of word
+opt.path:append("**")              -- include subdirectories in search
+opt.selection = "exclusive"        -- Selection behavior
+opt.mouse = "a"                    -- Enable mouse support
+opt.modifiable = true              -- Allow buffer modifications
+opt.encoding = "UTF-8"             -- Set encoding
+opt.jumpoptions = "view"           -- Restore scrolloff + cursor position
+opt.laststatus = 3                 -- global statusline
+opt.smoothscroll = true            -- Smooth animated scrolling instead of jumping line-by-line
 
 -- Buffer settings
 opt.inccommand = "nosplit" -- preview incremental substitute
