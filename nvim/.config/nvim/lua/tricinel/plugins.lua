@@ -1,7 +1,7 @@
 require("tricinel.plugins.colorscheme")
 require("tricinel.plugins.whichkey")
 require("tricinel.plugins.blink")
-require("tricinel.plugins.mason")
+require("tricinel.plugins.lsp")
 require("tricinel.plugins.treesitter")
 require("tricinel.plugins.autotag")
 require("tricinel.plugins.conform")
