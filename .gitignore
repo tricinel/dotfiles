@@ -86,5 +86,6 @@ $RECYCLE.BIN/
 *.lnk
 
 lazy-lock.json
+nvim-pack-lock.json
 
 nvim/.config/nvim/lua/local/*
