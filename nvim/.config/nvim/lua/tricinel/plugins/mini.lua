@@ -7,10 +7,40 @@ vim.pack.add({
 
   -- Visualise indentation
   "https://github.com/nvim-mini/mini.indentscope",
+
+  -- Status line
+  "https://github.com/nvim-mini/mini.statusline",
 })
 
 require("mini.icons").setup()
 require("mini.indentscope").setup()
+
+local statusline = require("mini.statusline")
+statusline.setup({
+  content = {
+    active = function()
+      local mode, mode_hl = statusline.section_mode({ trunc_width = 120 })
+      local git           = statusline.section_git({ trunc_width = 75 })
+      local diff          = statusline.section_diff({ trunc_width = 75 })
+      local diagnostics   = statusline.section_diagnostics({ trunc_width = 75 })
+      local lsp           = statusline.section_lsp({ trunc_width = 75 })
+      local fileinfo      = statusline.section_fileinfo({ trunc_width = 120 })
+      local location      = statusline.section_location({ trunc_width = 75 })
+      local search        = statusline.section_searchcount({ trunc_width = 75 })
+
+      return statusline.combine_groups({
+        { hl = mode_hl,                 strings = { mode } },
+        { hl = 'MiniStatuslineDevinfo', strings = { git, diff, diagnostics } },
+        '%=', -- End left alignment, start right alignment
+        { hl = 'MiniStatuslineFileinfo', strings = { fileinfo, lsp } },
+        { hl = mode_hl,                  strings = { search, location } },
+      })
+    end,
+    inactive = nil,
+  },
+  use_icons = true,
+  set_vim_settings = true,
+})
 
 require("mini.starter").setup({
   header = "Let's make some cool shit",
