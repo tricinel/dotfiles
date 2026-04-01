@@ -19,21 +19,31 @@ local statusline = require("mini.statusline")
 statusline.setup({
   content = {
     active = function()
-      local mode, mode_hl = statusline.section_mode({ trunc_width = 120 })
-      local git           = statusline.section_git({ trunc_width = 75 })
-      local diff          = statusline.section_diff({ trunc_width = 75 })
-      local diagnostics   = statusline.section_diagnostics({ trunc_width = 75 })
-      local lsp           = statusline.section_lsp({ trunc_width = 75 })
-      local fileinfo      = statusline.section_fileinfo({ trunc_width = 120 })
-      local location      = statusline.section_location({ trunc_width = 75 })
-      local search        = statusline.section_searchcount({ trunc_width = 75 })
+      local mode, mode_hl  = statusline.section_mode({ trunc_width = 120 })
+      local git            = statusline.section_git({ trunc_width = 75 })
+      local diff           = statusline.section_diff({ trunc_width = 75 })
+      local diagnostics    = statusline.section_diagnostics({ trunc_width = 75 })
+      local fileinfo       = statusline.section_fileinfo({ trunc_width = 120 })
+      local search         = statusline.section_searchcount({ trunc_width = 75 })
+
+      local filename       = function()
+        if vim.bo.buftype == 'terminal' then
+          return '%t'
+        else
+          return '%t%m%r'
+        end
+      end
+
+      local location_lines = function()
+        return '%l:%L'
+      end
 
       return statusline.combine_groups({
         { hl = mode_hl,                 strings = { mode } },
-        { hl = 'MiniStatuslineDevinfo', strings = { git, diff, diagnostics } },
+        { hl = 'MiniStatuslineDevinfo', strings = { filename(), git, diff, diagnostics } },
         '%=', -- End left alignment, start right alignment
-        { hl = 'MiniStatuslineFileinfo', strings = { fileinfo, lsp } },
-        { hl = mode_hl,                  strings = { search, location } },
+        { hl = 'MiniStatuslineFileinfo', strings = { fileinfo } },
+        { hl = mode_hl,                  strings = { search, location_lines() } },
       })
     end,
     inactive = nil,
