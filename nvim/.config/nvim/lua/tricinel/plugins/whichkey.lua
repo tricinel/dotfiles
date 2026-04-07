@@ -41,5 +41,6 @@ whichKey.add({
   { "<leader>v", group = "vim", icon = "󰙨" },
   { "<leader>u", group = "UI" },
   { "<leader>x", group = "Trouble", icon = "󰂭" },
-  { "<leader>f", group = "Files" }
+  { "<leader>f", group = "Files" },
+  { "<leader>l", group = "LSP" }
 })

@@ -19,6 +19,10 @@ vim.keymap.set("n", "<leader>sh", "<cmd>FzfLua search_history<cr>", { desc = "Se
 vim.keymap.set("n", "<leader>fm", "<cmd>FzfLua marks<cr>", { desc = "Marks" })
 vim.keymap.set("n", "<leader>fr", "<cmd>FzfLua live_grep resume=true<cr>", { desc = "Resume previous search" })
 vim.keymap.set("n", "<leader>sk", "<cmd>FzfLua keymaps<cr>", { desc = "Keymaps" })
+vim.keymap.set("n", "<leader>ls", "<cmd>FzfLua lsp_document_symbols<cr>", { desc = "Document symbols" })
+vim.keymap.set("n", "<leader>lc", "<cmd>FzfLua lsp_code_actions<cr>", { desc = "Code actions" })
+vim.keymap.set("n", "<leader>lx", "<cmd>FzfLua diagnostics_document<cr>", { desc = "Document diagnostics" })
+vim.keymap.set("n", "<leader>lX", "<cmd>FzfLua diagnostics_workspace<cr>", { desc = "Workspace diagnostics" })
 
 -- Search all lines that contain TODO or FIX or FIXME followed by the search query
 local function search_todos()
