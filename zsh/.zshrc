@@ -5,6 +5,9 @@ export ZSHDOTDIR=$HOME/.config/zsh
 export STARSHIP_CONFIG=$HOME/starship.toml
 export LG_CONFIG_FILE=$HOME/.config/lazygit/config.yml
 
+# Configure delta
+export DELTA_FEATURES="diff-so-fancy"
+
 # some useful options (man zshoptions)
 setopt autocd extendedglob nomatch menucomplete
 setopt interactive_comments
