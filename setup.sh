@@ -41,6 +41,7 @@ STOW_FOLDERS=(
   nvim
   starship
   zsh
+  lazygit
 )
 
 install_homebrew() {

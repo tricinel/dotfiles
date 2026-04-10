@@ -2,7 +2,8 @@
 # zmodload zsh/zprof
 
 export ZSHDOTDIR=$HOME/.config/zsh
-export STARSHIP_CONFIG=~/starship.toml
+export STARSHIP_CONFIG=$HOME/starship.toml
+export LG_CONFIG_FILE=$HOME/.config/lazygit/config.yml
 
 # some useful options (man zshoptions)
 setopt autocd extendedglob nomatch menucomplete
