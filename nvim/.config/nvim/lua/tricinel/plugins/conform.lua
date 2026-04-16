@@ -1,69 +1,69 @@
 vim.pack.add({
-	-- Handles running formatters like oxfmt, Prettier, gofmt
-	"https://github.com/stevearc/conform.nvim",
+  -- Handles running formatters like oxfmt, Prettier, gofmt
+  "https://github.com/stevearc/conform.nvim",
 })
 
 local formatters = { "oxfmt", "prettierd", "prettier", stop_after_first = true }
 
 require("conform").setup({
-	formatters_by_ft = {
-		javascript = formatters,
-		typescript = formatters,
-		javascriptreact = formatters,
-		typescriptreact = formatters,
-		html = formatters,
-		css = formatters,
-		go = { "goimports", "gofmt" },
-		lua = { "stylua" },
-	},
+  formatters_by_ft = {
+    javascript = formatters,
+    typescript = formatters,
+    javascriptreact = formatters,
+    typescriptreact = formatters,
+    html = formatters,
+    css = formatters,
+    go = { "goimports", "gofmt" },
+    lua = { "stylua" },
+  },
 
-	formatters = {
-		-- oxfmt: only run if running inside a project
-		oxfmt = {
-			require_cwd = true,
-		},
+  formatters = {
+    -- oxfmt: only run if running inside a project
+    oxfmt = {
+      require_cwd = true,
+    },
 
-		-- Prettier: only run if prettier config exists in project root
-		prettier = {
-			require_cwd = true,
-		},
-	},
+    -- Prettier: only run if prettier config exists in project root
+    prettier = {
+      require_cwd = true,
+    },
+  },
 
-	format_on_save = function(bufnr)
-		-- Disable if global or buffer-local flag is set
-		if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
-			return
-		end
+  format_on_save = function(bufnr)
+    -- Disable if global or buffer-local flag is set
+    if vim.g.disable_autoformat or vim.b[bufnr].disable_autoformat then
+      return
+    end
 
-		local bufname = vim.api.nvim_buf_get_name(bufnr)
+    local bufname = vim.api.nvim_buf_get_name(bufnr)
 
-		if bufname:match("/node_modules/") then
-			return
-		end
+    if bufname:match("/node_modules/") then
+      return
+    end
 
-		return {
-			timeout_ms = 500,
-			lsp_format = "fallback", -- Use LSP formatting if no formatter configured
-		}
-	end,
+    return {
+      timeout_ms = 500,
+      lsp_format = "fallback", -- Use LSP formatting if no formatter configured
+    }
+  end,
 })
 
 -- Avoid conflicts with Prettier
 vim.g.lazyvim_prettier_needs_config = true
 
 -- Keymaps
-vim.keymap.set("n", "<leader>cF", function()
-	vim.b.disable_autoformat = not vim.b.disable_autoformat
-	if vim.b.disable_autoformat then
-		vim.notify("Autoformat disabled for this buffer", vim.log.levels.INFO, { title = "Conform" })
-	else
-		vim.notify("Autoformat enabled for this buffer", vim.log.levels.INFO, { title = "Conform" })
-	end
+vim.keymap.set("n", "<leader>bF", function()
+  vim.b.disable_autoformat = not vim.b.disable_autoformat
+  if vim.b.disable_autoformat then
+    vim.notify("Autoformat disabled for this buffer", vim.log.levels.INFO, { title = "Conform" })
+  else
+    vim.notify("Autoformat enabled for this buffer", vim.log.levels.INFO, { title = "Conform" })
+  end
 end, { desc = "Toggle formatting" })
 
-vim.keymap.set({ "n", "v" }, "<leader>cf", function()
-	require("conform").format({
-		async = true,
-		lsp_format = "fallback",
-	})
+vim.keymap.set({ "n", "v" }, "<leader>bf", function()
+  require("conform").format({
+    async = true,
+    lsp_format = "fallback",
+  })
 end, { desc = "Format" })

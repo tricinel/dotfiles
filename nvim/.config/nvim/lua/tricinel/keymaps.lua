@@ -49,7 +49,7 @@ map("v", ">", ">gv", { desc = "Indent right and reselect" })
 -- Better J behavior
 map("n", "J", "mzJ`z", { desc = "Join lines and keep cursor position" })
 
-map("n", "<leader>cs", function()
+map("n", "<leader>bs", function()
   vim.cmd("so")
 end, { desc = "Source current file" })
 

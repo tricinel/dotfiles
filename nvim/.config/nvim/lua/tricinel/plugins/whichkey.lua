@@ -35,7 +35,6 @@ end, { desc = "Buffer Keymaps (which-key)" })
 -- Some groups for easy visual reference
 whichKey.add({
   { "<leader>b", group = "Buffer" },
-  { "<leader>c", group = "Code" },
   { "<leader>s", group = "Search" },
   { "<leader>g", group = "git" },
   { "<leader>v", group = "vim", icon = "󰙨" },
