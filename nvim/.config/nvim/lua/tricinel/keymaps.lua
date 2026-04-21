@@ -32,7 +32,31 @@ map(
 -- Better window navigation
 map("n", "<C-h>", "<C-w>h", { desc = "Move to left window" })
 map("n", "<C-l>", "<C-w>l", { desc = "Move to right window" })
-map("n", "<leader>uv", ":vsplit<cr>", { desc = "Split window vertically" })
+map("n", "<leader>uv", function()
+  local bufs = vim.fn.getbufinfo({ buflisted = 1 })
+
+  if #bufs <= 1 then
+    vim.cmd("vsplit")
+  else
+    local cur = vim.api.nvim_get_current_buf()
+
+    vim.cmd("vsplit")
+    vim.api.nvim_set_current_buf(cur)
+
+    vim.cmd("wincmd h")
+    vim.cmd("buffer #")
+    vim.cmd("wincmd l")
+  end
+end, { desc = "Open current buffer in vertical split" })
+map("n", "<leader>ux", function()
+  local wins = vim.api.nvim_list_wins()
+  if #wins < 2 then return end
+
+  local right_win = wins[#wins]
+
+  vim.api.nvim_set_current_win(right_win)
+  vim.cmd("close")
+end, { desc = "Close the rightmost window" })
 map("n", "<C-Left>", ":vertical resize -2<cr>", { desc = "Decrease window width" })
 map("n", "<C-Right>", ":vertical resize +2<cr>", { desc = "Increase window width" })
 
