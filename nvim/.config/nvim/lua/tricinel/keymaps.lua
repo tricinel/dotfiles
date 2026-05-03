@@ -212,4 +212,4 @@ local function open_floating_terminal()
 end
 
 map("n", "<leader>vt", open_floating_terminal, { desc = "Floating terminal" })
-map("t", "<esc>", [[<C-\><C-n>]], { desc = "Exit terminal mode" })
+map("t", "<C-]>", [[<C-\><C-n>]], { desc = "Exit terminal mode" })
