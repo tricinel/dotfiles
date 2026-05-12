@@ -114,3 +114,14 @@ vim.api.nvim_create_autocmd("UIEnter", {
     vim.opt.clipboard = "unnamedplus"
   end,
 })
+
+-- Update terminal window title
+vim.api.nvim_create_autocmd({ "VimEnter", "DirChanged" }, {
+  group = augroup,
+  callback = function()
+    local cwd = vim.fn.fnamemodify(vim.fn.getcwd(), ":t")
+    local title = "nvim - " .. cwd
+    io.write("\27]2;" .. title .. "\7")
+    io.flush()
+  end,
+})
