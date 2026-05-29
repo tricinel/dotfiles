@@ -1,13 +1,6 @@
 # for profiling zsh
 # zmodload zsh/zprof
 
-export ZSHDOTDIR=$HOME/.config/zsh
-export STARSHIP_CONFIG=$HOME/starship.toml
-export LG_CONFIG_FILE=$HOME/.config/lazygit/config.yml
-
-# Configure delta
-export DELTA_FEATURES="diff-so-fancy"
-
 # some useful options (man zshoptions)
 setopt autocd extendedglob nomatch menucomplete
 setopt interactive_comments
@@ -33,15 +26,15 @@ zle -N down-line-or-beginning-search
 # Colors
 autoload -Uz colors && colors
 
-# shortcut to this dotfiles path is $DOTFILES
-export DOTFILES=$HOME/.dotfiles
-
 # use .localrc for SUPER SECRET CRAP that you don't
 # want in your public, versioned repo.
 if [[ -e ~/.localrc ]]
 then
   source ~/.localrc
 fi
+
+# shortcut to this dotfiles path is $DOTFILES
+export DOTFILES=$HOME/.dotfiles
 
 # all of our zsh files
 typeset -U config_files
@@ -56,7 +49,10 @@ done
 unset config_files
 
 # fnm setup
-eval "$(fnm env --use-on-cd --shell zsh)"
+if [[ -z ${__FNM_ENV_LOADED:-} ]]; then
+  export __FNM_ENV_LOADED=1
+  eval "$(fnm env --use-on-cd --shell zsh)"
+fi
 
 # starship setup
 eval "$(starship init zsh)"
@@ -66,12 +62,6 @@ eval "$(starship init zsh)"
 
 # load zoxide
 eval "$(zoxide init zsh --cmd j)"
-
-export CARGO_PATH="/Users/tricinel/.cargo/bin"
-export PNPM_HOME="/Users/tricinel/Library/pnpm"
-export PATH="$PNPM_HOME:$CARGO_PATH:$PATH"
-export SSH_AUTH_SOCK=$($HOMEBREW_BIN/gpgconf --list-dirs agent-ssh-socket)
-export EDITOR="$HOMEBREW_BIN/nvim"
 
 export CARAPACE_BRIDGES='zsh,bash,inshellisense' # optional
 zstyle ':completion:*' format $'\e[2;37mCompleting %d\e[m'

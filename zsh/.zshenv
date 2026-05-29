@@ -1,4 +1,5 @@
-export PATH="/usr/local/sbin:$PATH"
+typeset -U path PATH
+path=(/usr/local/sbin $path)
 
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
