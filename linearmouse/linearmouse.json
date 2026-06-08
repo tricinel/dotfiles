@@ -1,0 +1,41 @@
+{
+  "$schema" : "https:\/\/schema.linearmouse.app\/0.11.2",
+  "schemes" : [
+    {
+      "buttons" : {
+        "clickDebouncing" : {
+          "timeout" : 0
+        },
+        "mappings" : [
+          {
+            "action" : "missionControl",
+            "button" : 2,
+            "command" : false,
+            "control" : false,
+            "option" : false,
+            "shift" : false
+          }
+        ],
+        "universalBackForward" : true
+      },
+      "if" : {
+        "device" : {
+          "category" : "mouse",
+          "productID" : "0xb03e",
+          "productName" : "MX Ergo S",
+          "serialNumber" : "C1A7E0B8",
+          "vendorID" : "0x46d"
+        }
+      },
+      "pointer" : {
+        "acceleration" : 1.3036,
+        "speed" : 0.1368
+      },
+      "scrolling" : {
+        "speed" : {
+          "vertical" : 1.85
+        }
+      }
+    }
+  ]
+}
