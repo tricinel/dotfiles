@@ -42,6 +42,7 @@ STOW_FOLDERS=(
   starship
   zsh
   lazygit
+  linearmouse
 )
 
 install_homebrew() {
