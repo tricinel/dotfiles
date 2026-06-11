@@ -1,3 +1,9 @@
+# Setup fnm
+if [[ -z ${__FNM_ENV_LOADED:-} ]] && command -v fnm >/dev/null 2>&1; then
+  export __FNM_ENV_LOADED=1
+  eval "$(fnm env --use-on-cd --shell zsh)"
+fi
+
 function fnm-install() {
   local NEW_VER=$1
   if [ -z "$NEW_VER" ]; then

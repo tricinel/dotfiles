@@ -1,21 +1,8 @@
-# lazy-load fnm env on first node tool use
-__load_fnm_env() {
-  if [[ -z ${__FNM_ENV_LOADED:-} ]] && command -v fnm >/dev/null 2>&1; then
-    export __FNM_ENV_LOADED=1
-    eval "$(fnm env --use-on-cd --shell zsh)"
-  fi
-}
-
-for __cmd in fnm node npm npx pnpm corepack; do
-  eval "function ${__cmd}() { __load_fnm_env; unfunction ${__cmd}; command ${__cmd} \"\$@\"; }"
-done
-unset __cmd
-
 # lazy-load zoxide on first j use
 j() {
   if command -v zoxide >/dev/null 2>&1; then
-    eval "$(zoxide init zsh --cmd j)"
     unfunction j
+    eval "$(zoxide init zsh --cmd j)"
     j "$@"
   else
     print -u2 -- "zoxide not found"
