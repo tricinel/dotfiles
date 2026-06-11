@@ -103,6 +103,32 @@ configure_apps() {
   $(brew --prefix)/opt/fzf/install --key-bindings --completion --no-update-rc --no-bash --no-fish
 }
 
+zsh-plugin-install() {
+  local zsh_plugins_file="$HOME/.dotfiles/extra/zsh/plugins.zsh"
+  local plugins_dir="$HOME/.dotfiles/zsh/plugins"
+
+  if [[ ! -f "$zsh_plugins_file" ]]; then
+    echo "Missing plugins file: $zsh_plugins_file"
+    return 1
+  fi
+
+  mkdir -p "$plugins_dir"
+
+  local repo
+  local plugin_name
+  while IFS= read -r repo; do
+    plugin_name="${repo#*/}"
+
+    if [[ -d "$plugins_dir/$plugin_name/.git" ]]; then
+      echo "Updating $repo"
+      git -C "$plugins_dir/$plugin_name" pull --ff-only
+    else
+      echo "Installing $repo"
+      git clone "https://github.com/$repo.git" "$plugins_dir/$plugin_name"
+    fi
+  done < <(sed -n 's/^zsh_add_plugin "\([^"]*\)"/\1/p' "$zsh_plugins_file")
+}
+
 stow_files() {
   echo "stowing things..."
   for folder in $STOW_FOLDERS
@@ -132,6 +158,7 @@ run_all() {
   backup
   install_standalone_apps
   stow_files
+  zsh-plugin-install
   configure_apps
   cleanup
 

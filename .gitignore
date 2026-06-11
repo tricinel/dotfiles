@@ -89,3 +89,5 @@ lazy-lock.json
 nvim-pack-lock.json
 
 nvim/.config/nvim/lua/local/*
+
+MEMORY.md

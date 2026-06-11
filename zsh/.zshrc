@@ -4,7 +4,9 @@
 # some useful options (man zshoptions)
 setopt autocd extendedglob nomatch menucomplete
 setopt interactive_comments
-stty stop undef		# Disable ctrl-s to freeze terminal.
+if [[ -t 0 ]]; then
+  stty stop undef  # Disable ctrl-s to freeze terminal.
+fi
 zle_highlight=('paste:none')
 
 # beeping is annoying
@@ -15,7 +17,25 @@ autoload -Uz compinit
 zstyle ':completion:*' menu select
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
 zmodload zsh/complist
-compinit
+
+typeset zcompdump_file="${ZDOTDIR:-$HOME}/.zcompdump"
+typeset zcompmeta_file="${zcompdump_file}.plugins-hash"
+typeset plugins_dir="${ZSHDOTDIR:-$HOME}/plugins"
+typeset plugins_hash=""
+
+if [[ -d "$plugins_dir" ]]; then
+  plugins_hash="$(command find "$plugins_dir" -mindepth 1 -maxdepth 1 -type d -print 2>/dev/null | command sort | shasum | awk '{print $1}')"
+fi
+
+if [[ -f "$zcompdump_file" && -f "$zcompmeta_file" && "$(<"$zcompmeta_file")" == "$plugins_hash" ]]; then
+  compinit -C
+else
+  compinit
+  print -r -- "$plugins_hash" >| "$zcompmeta_file"
+fi
+
+unset zcompdump_file zcompmeta_file plugins_dir plugins_hash
+
 _comp_options+=(globdots)		# Include hidden files.
 
 autoload -U up-line-or-beginning-search
@@ -36,45 +56,27 @@ fi
 # shortcut to this dotfiles path is $DOTFILES
 export DOTFILES=$HOME/.dotfiles
 
-# all of our zsh files
-typeset -U config_files
-config_files=($DOTFILES/extra/**/*.zsh)
+# zsh config files (explicit order)
+typeset -a zsh_sources=(
+  "$DOTFILES/extra/zsh/path.zsh"
+  "$DOTFILES/extra/zsh/exports.zsh"
+  "$DOTFILES/extra/zsh/helpers.zsh"
+  "$DOTFILES/extra/zsh/aliases.zsh"
+  "$DOTFILES/extra/zsh/functions.zsh"
+  "$DOTFILES/extra/zsh/node.zsh"
+  "$DOTFILES/extra/zsh/plugins.zsh"
+  "$DOTFILES/extra/zsh/lazy-init.zsh"
+  "$DOTFILES/extra/git/aliases.zsh"
+)
 
-# load everything
-for file in ${(M)config_files}
-do
-  source $file
+for file in $zsh_sources; do
+  [[ -f "$file" ]] && source "$file"
 done
 
-unset config_files
-
-# fnm setup
-if [[ -z ${__FNM_ENV_LOADED:-} ]]; then
-  export __FNM_ENV_LOADED=1
-  eval "$(fnm env --use-on-cd --shell zsh)"
-fi
+unset zsh_sources
 
 # starship setup
 eval "$(starship init zsh)"
-
-# fzf fuzzy finder
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-# load zoxide
-eval "$(zoxide init zsh --cmd j)"
-
-export CARAPACE_BRIDGES='zsh,bash,inshellisense' # optional
-zstyle ':completion:*' format $'\e[2;37mCompleting %d\e[m'
-source <(carapace _carapace)
-
-# fix zsh-vi-mode plugin interfering with fzf keybindings
-zvm_after_init_commands+=('source <(fzf --zsh)')
-
-# load atuin
-eval "$(atuin init zsh)"
-
-# load worktrunk completions
-if command -v wt >/dev/null 2>&1; then eval "$(command wt config shell init zsh)"; fi
 
 # for profiling zsh
 # zprof
