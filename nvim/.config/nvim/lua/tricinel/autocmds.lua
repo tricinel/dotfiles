@@ -125,3 +125,28 @@ vim.api.nvim_create_autocmd({ "VimEnter", "DirChanged" }, {
     io.flush()
   end,
 })
+
+vim.api.nvim_create_autocmd("User", {
+  pattern = "PersistenceSavePre",
+  desc = "Session cleanup: close oil, wipe empty buffers, skip saving if only a .pi.md file exists",
+  callback = function()
+    local buffers = vim.api.nvim_list_bufs()
+
+    for _, bufnr in ipairs(buffers) do
+      if vim.api.nvim_buf_is_valid(bufnr) and vim.bo[bufnr].buflisted then
+        local buf_name = vim.api.nvim_buf_get_name(bufnr)
+        local buf_ft = vim.bo[bufnr].filetype
+
+        if buf_ft == "oil" then
+          vim.api.nvim_buf_delete(bufnr, { force = true })
+        elseif buf_name == "" and vim.api.nvim_buf_get_offset(bufnr, vim.api.nvim_buf_line_count(bufnr)) == 0 then
+          vim.api.nvim_buf_delete(bufnr, { force = true })
+
+          -- Cleanup: Wipe out the temp .pi.md buffer so that we don't save it
+        elseif buf_name:find("%.pi%.md") then
+          vim.api.nvim_buf_delete(bufnr, { force = true })
+        end
+      end
+    end
+  end,
+})
