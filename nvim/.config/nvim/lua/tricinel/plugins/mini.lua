@@ -10,10 +10,24 @@ vim.pack.add({
 
   -- Status line
   "https://github.com/nvim-mini/mini.statusline",
+
+  -- Surround text objects, add/delete/change surroundings
+  "https://github.com/nvim-mini/mini.surround",
 })
 
 require("mini.icons").setup()
 require("mini.indentscope").setup()
+require("mini.surround").setup({
+  mappings = {
+    add = 'gsa',
+    delete = 'gsd',
+    find = 'gsf',
+    find_left = 'gsF',
+    highlight = 'gsh',
+    replace = 'gsr',
+    update_n_lines = 'gsn',
+  },
+})
 
 local statusline = require("mini.statusline")
 statusline.setup({
