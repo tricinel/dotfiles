@@ -90,4 +90,8 @@ nvim-pack-lock.json
 
 nvim/.config/nvim/lua/local/*
 
+.benchmarks/results/
+.benchmarks/baselines/local/
+.benchmarks/snapshots/local/
+
 MEMORY.md

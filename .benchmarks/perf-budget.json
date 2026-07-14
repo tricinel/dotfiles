@@ -1,0 +1,16 @@
+{
+  "shell-startup": {
+    "command": "zsh -i -c exit",
+    "runs": 50,
+    "warmup": 10,
+    "maxPercentRegression": 15,
+    "maxAbsoluteRegressionMs": 30
+  },
+  "nvim-startup": {
+    "command": "nvim --headless +qa",
+    "runs": 30,
+    "warmup": 5,
+    "maxPercentRegression": 15,
+    "maxAbsoluteRegressionMs": 20
+  }
+}

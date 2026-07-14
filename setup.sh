@@ -22,6 +22,7 @@ BREW_APPS=(
   lazygit
   ripgrep
   fd
+  hyperfine
   eza
   zoxide
   carapace

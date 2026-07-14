@@ -1,0 +1,330 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+CONFIG="$ROOT_DIR/.benchmarks/perf-budget.json"
+BASELINE_DIR="$ROOT_DIR/.benchmarks/baselines"
+RESULTS_DIR="$ROOT_DIR/.benchmarks/results"
+SNAPSHOT_DIR="$ROOT_DIR/.benchmarks/snapshots/local"
+
+usage() {
+  cat <<'USAGE'
+Usage:
+  scripts/perf-budget --list
+  scripts/perf-budget --show
+  scripts/perf-budget <benchmark>
+  scripts/perf-budget <benchmark> --show
+  scripts/perf-budget <benchmark> --history
+  scripts/perf-budget <benchmark> --save-snapshot <name>
+  scripts/perf-budget <benchmark> --update-baseline
+
+Examples:
+  scripts/perf-budget shell-startup --update-baseline
+  scripts/perf-budget shell-startup
+  scripts/perf-budget shell-startup --show
+  scripts/perf-budget nvim-startup --save-snapshot mini-surround
+  scripts/perf-budget nvim-startup --history
+USAGE
+}
+
+require_command() {
+  local name="$1"
+
+  if ! command -v "$name" >/dev/null 2>&1; then
+    echo "Missing dependency: $name" >&2
+    if [[ "$name" == "hyperfine" ]]; then
+      echo "Install with: brew install hyperfine" >&2
+    fi
+    exit 1
+  fi
+}
+
+list_benchmarks() {
+  jq -r 'keys[]' "$CONFIG"
+}
+
+benchmark_exists() {
+  jq -e --arg name "$1" 'has($name)' "$CONFIG" >/dev/null
+}
+
+config_value() {
+  jq -r --arg name "$BENCHMARK" --arg key "$1" '.[$name][$key]' "$CONFIG"
+}
+
+json_mean() {
+  jq -er '.results[0].mean | numbers' "$1"
+}
+
+format_result() {
+  local label="$1"
+  local file="$2"
+  local baseline="${3:-}"
+
+  if [[ -n "$baseline" ]]; then
+    jq -r --arg label "$label" --argjson baseline "$baseline" '
+      .results[0]
+      | .mean as $mean
+      | (($mean - $baseline) * 1000) as $delta_ms
+      | ((($mean - $baseline) / $baseline) * 100) as $delta_percent
+      | "\($label): \(($mean * 1000) | round) ms ± \((.stddev * 1000) | round) ms (Δ \($delta_ms | round) ms / \($delta_percent | round)%)"
+    ' "$file"
+  else
+    jq -r --arg label "$label" '
+      .results[0]
+      | "\($label): \((.mean * 1000) | round) ms ± \((.stddev * 1000) | round) ms (min \((.min * 1000) | round) ms, max \((.max * 1000) | round) ms)"
+    ' "$file"
+  fi
+}
+
+show_result() {
+  local benchmark="$1"
+  local result="$RESULTS_DIR/$benchmark.current.json"
+
+  if [[ ! -f "$result" ]]; then
+    echo "No current result found for $benchmark."
+    echo "Run: scripts/perf-budget $benchmark"
+    return 0
+  fi
+
+  format_result "$benchmark" "$result"
+}
+
+save_snapshot() {
+  local benchmark="$1"
+  local name="$2"
+  local current="$RESULTS_DIR/$benchmark.current.json"
+  local slug
+  local timestamp
+  local target_dir
+  local target
+
+  if [[ ! -f "$current" ]]; then
+    echo "No current result found for $benchmark."
+    echo "Run: scripts/perf-budget $benchmark"
+    return 0
+  fi
+
+  slug=$(printf '%s' "$name" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9._-]+/-/g; s/^-+//; s/-+$//')
+  if [[ -z "$slug" ]]; then
+    echo "Invalid snapshot name: $name" >&2
+    exit 1
+  fi
+
+  timestamp=$(date -u +%Y%m%dT%H%M%SZ)
+  target_dir="$SNAPSHOT_DIR/$benchmark"
+  target="$target_dir/$timestamp-$slug.json"
+
+  mkdir -p "$target_dir"
+  cp "$current" "$target"
+  echo "Saved snapshot: $target"
+}
+
+baseline_for() {
+  local benchmark="$1"
+  local local_baseline="$BASELINE_DIR/local/$benchmark.json"
+  local default_baseline="$BASELINE_DIR/default/$benchmark.json"
+
+  if [[ -f "$local_baseline" ]]; then
+    printf '%s\n' "$local_baseline"
+  elif [[ -f "$default_baseline" ]]; then
+    printf '%s\n' "$default_baseline"
+  fi
+}
+
+show_history() {
+  local benchmark="$1"
+  local baseline
+  local baseline_mean=""
+  local snapshot_dir="$SNAPSHOT_DIR/$benchmark"
+  local previous_mean=""
+  local snapshot
+
+  baseline=$(baseline_for "$benchmark" || true)
+
+  echo "$benchmark history"
+
+  if [[ -n "$baseline" ]]; then
+    baseline_mean=$(json_mean "$baseline")
+    format_result "baseline" "$baseline"
+    previous_mean="$baseline_mean"
+  else
+    echo "No baseline found."
+  fi
+
+  if [[ ! -d "$snapshot_dir" ]] || ! find "$snapshot_dir" -type f -name '*.json' -print -quit | grep -q .; then
+    echo "No snapshots found."
+    echo "Run: scripts/perf-budget $benchmark --save-snapshot <name>"
+    return 0
+  fi
+
+  while IFS= read -r snapshot; do
+    local filename label current_mean
+    filename="$(basename "$snapshot" .json)"
+    label="snapshot ${filename#*-}"
+
+    if [[ -n "$previous_mean" ]]; then
+      format_result "$label" "$snapshot" "$previous_mean"
+    else
+      format_result "$label" "$snapshot"
+    fi
+
+    current_mean=$(json_mean "$snapshot")
+    previous_mean="$current_mean"
+  done < <(find "$snapshot_dir" -type f -name '*.json' | sort)
+}
+
+run_benchmark() {
+  local command="$1"
+  local runs="$2"
+  local warmup="$3"
+  local current="$4"
+
+  echo "Running benchmark: $BENCHMARK"
+  echo "Command: $command"
+
+  hyperfine \
+    --warmup "$warmup" \
+    --runs "$runs" \
+    --export-json "$current" \
+    "$command"
+}
+
+compare_results() {
+  local baseline="$1"
+  local baseline_label="$2"
+  local current="$3"
+  local max_percent="$4"
+  local max_ms="$5"
+  local baseline_mean current_mean
+  local delta_seconds delta_ms percent over_budget
+
+  baseline_mean=$(json_mean "$baseline")
+  current_mean=$(json_mean "$current")
+
+  read -r delta_seconds delta_ms percent over_budget <<EOF_METRICS
+$(awk -v baseline="$baseline_mean" -v current="$current_mean" -v max_percent="$max_percent" -v max_ms="$max_ms" '
+BEGIN {
+  delta = current - baseline
+  delta_ms = delta * 1000
+  percent = (delta / baseline) * 100
+  over = (delta_ms > max_ms || percent > max_percent) ? 1 : 0
+  printf "%.6f %.3f %.2f %d", delta, delta_ms, percent, over
+}
+')
+EOF_METRICS
+
+  printf "Baseline (%s): %.4fs\n" "$baseline_label" "$baseline_mean"
+  printf "Current:      %.4fs\n" "$current_mean"
+  printf "Delta:        %+.4fs / %+.2fms / %+.2f%%\n" "$delta_seconds" "$delta_ms" "$percent"
+  printf "Budget:       +%sms or +%s%%\n" "$max_ms" "$max_percent"
+
+  if [[ "$over_budget" == "1" ]]; then
+    echo "WARN $BENCHMARK regression over budget"
+  else
+    echo "OK $BENCHMARK within budget"
+  fi
+}
+
+if [[ $# -eq 0 || "${1:-}" == "--help" || "${1:-}" == "-h" ]]; then
+  usage
+  exit 0
+fi
+
+require_command jq
+
+if [[ ! -f "$CONFIG" ]]; then
+  echo "Missing config: $CONFIG" >&2
+  exit 1
+fi
+
+if [[ "$1" == "--list" ]]; then
+  list_benchmarks
+  exit 0
+fi
+
+if [[ "$1" == "--show" ]]; then
+  while IFS= read -r benchmark; do
+    show_result "$benchmark"
+  done < <(list_benchmarks)
+  exit 0
+fi
+
+BENCHMARK="$1"
+ACTION="run"
+SNAPSHOT_NAME=""
+
+case "${2:-}" in
+  "") ACTION="run" ;;
+  --show) ACTION="show" ;;
+  --history) ACTION="history" ;;
+  --update-baseline) ACTION="update-baseline" ;;
+  --save-snapshot)
+    ACTION="save-snapshot"
+    SNAPSHOT_NAME="${3:-}"
+    if [[ -z "$SNAPSHOT_NAME" || $# -ne 3 ]]; then
+      usage >&2
+      exit 1
+    fi
+    ;;
+  *)
+    usage >&2
+    exit 1
+    ;;
+esac
+
+if [[ "$ACTION" != "save-snapshot" && $# -gt 2 ]]; then
+  usage >&2
+  exit 1
+fi
+
+if ! benchmark_exists "$BENCHMARK"; then
+  echo "Unknown benchmark: $BENCHMARK" >&2
+  echo "Available benchmarks:" >&2
+  list_benchmarks >&2
+  exit 1
+fi
+
+mkdir -p "$RESULTS_DIR" "$BASELINE_DIR/local" "$SNAPSHOT_DIR"
+
+case "$ACTION" in
+  show)
+    show_result "$BENCHMARK"
+    exit 0
+    ;;
+  history)
+    show_history "$BENCHMARK"
+    exit 0
+    ;;
+  save-snapshot)
+    save_snapshot "$BENCHMARK" "$SNAPSHOT_NAME"
+    exit 0
+    ;;
+esac
+
+require_command hyperfine
+
+COMMAND=$(config_value command)
+RUNS=$(config_value runs)
+WARMUP=$(config_value warmup)
+MAX_PERCENT=$(config_value maxPercentRegression)
+MAX_MS=$(config_value maxAbsoluteRegressionMs)
+CURRENT="$RESULTS_DIR/$BENCHMARK.current.json"
+LOCAL_BASELINE="$BASELINE_DIR/local/$BENCHMARK.json"
+DEFAULT_BASELINE="$BASELINE_DIR/default/$BENCHMARK.json"
+
+run_benchmark "$COMMAND" "$RUNS" "$WARMUP" "$CURRENT"
+
+if [[ "$ACTION" == "update-baseline" ]]; then
+  cp "$CURRENT" "$LOCAL_BASELINE"
+  echo "Updated local baseline: $LOCAL_BASELINE"
+  exit 0
+fi
+
+if [[ -f "$LOCAL_BASELINE" ]]; then
+  compare_results "$LOCAL_BASELINE" "local" "$CURRENT" "$MAX_PERCENT" "$MAX_MS"
+elif [[ -f "$DEFAULT_BASELINE" ]]; then
+  compare_results "$DEFAULT_BASELINE" "default" "$CURRENT" "$MAX_PERCENT" "$MAX_MS"
+else
+  echo "No baseline found for $BENCHMARK."
+  echo "Run: scripts/perf-budget $BENCHMARK --update-baseline"
+fi

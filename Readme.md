@@ -34,6 +34,23 @@ If you have sensible private information particular to your system (DON'T commit
 
 Any other git config you want to keep private, you can put in there.
 
+## Performance budgets
+
+Use `scripts/perf-budget` to benchmark local startup time for shell and nvim config changes.
+
+```shell
+scripts/perf-budget --list
+scripts/perf-budget shell-startup --update-baseline
+scripts/perf-budget shell-startup
+scripts/perf-budget shell-startup --show
+scripts/perf-budget --show
+scripts/perf-budget nvim-startup
+scripts/perf-budget nvim-startup --save-snapshot mini-surround
+scripts/perf-budget nvim-startup --history
+```
+
+Baselines live in `.benchmarks/baselines/local/` and are meant to be machine-specific. Results live in `.benchmarks/results/`. Snapshots live in `.benchmarks/snapshots/local/` and record named accepted changes over time. Normal runs warn when startup time drifts over budget, but they do not fail with a non-zero exit code.
+
 ## Comments
 
 As always, these are most [welcome](https://github.com/tricinel/dotfiles/issues).
