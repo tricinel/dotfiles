@@ -23,6 +23,8 @@ require("oil").setup({
   },
   float = {
     padding = 2,
+    max_width = math.floor(vim.o.columns * 0.8),
+    max_height = math.floor(vim.o.lines * 0.8),
     border = "rounded",
     win_options = {
       winblend = 0,
