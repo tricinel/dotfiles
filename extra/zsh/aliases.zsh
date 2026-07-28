@@ -1,6 +1,6 @@
 # Easier navigation
 alias ..='cd ..'
-alias ...='cd ../../../'
+alias ...='cd ../../'
 
 # Shortcuts
 alias h="history"
