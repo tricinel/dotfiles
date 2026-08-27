@@ -3,6 +3,7 @@
 BREW_APPS=(
   zsh
   git
+  gh
   gpg
   bat
   httpie
