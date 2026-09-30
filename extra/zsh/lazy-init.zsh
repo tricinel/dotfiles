@@ -41,14 +41,3 @@ __load_atuin_once() {
 }
 add-zsh-hook precmd __load_atuin_once
 
-# lazy-load worktrunk completions on first wt command
-wt() {
-  if command -v wt >/dev/null 2>&1; then
-    eval "$(command wt config shell init zsh)"
-    unfunction wt
-    command wt "$@"
-  else
-    print -u2 -- "wt not found"
-    return 127
-  fi
-}
