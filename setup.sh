@@ -45,6 +45,7 @@ STOW_FOLDERS=(
   zsh
   lazygit
   linearmouse
+  rex
 )
 
 install_homebrew() {
