@@ -1,0 +1,53 @@
+{
+  "layer" : {
+    "bindings" : [
+      {
+        "action" : "com.superlogical.terminal.clear",
+        "keys" : [
+          "cmd+k"
+        ],
+        "source" : "settings"
+      },
+      {
+        "action" : "client.tab_style.toggle",
+        "keys" : [
+          "shift+cmd+t"
+        ],
+        "source" : "settings"
+      },
+      {
+        "action" : "session.switch",
+        "keys" : [
+          "shift+cmd+s"
+        ],
+        "source" : "settings"
+      },
+      {
+        "action" : "session.rename",
+        "keys" : [
+          "shift+cmd+r"
+        ],
+        "source" : "settings"
+      }
+    ],
+    "name" : "settings",
+    "removals" : [
+      {
+        "action" : "session.switch",
+        "keys" : [
+          "cmd+k"
+        ]
+      },
+      {
+        "action" : "client.tab_style.toggle",
+        "keys" : [
+          "shift+cmd+s"
+        ]
+      }
+    ]
+  },
+  "migrations" : [
+    "bracket-characters"
+  ],
+  "version" : 1
+}

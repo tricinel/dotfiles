@@ -36,14 +36,14 @@ Any other git config you want to keep private, you can put in there.
 
 ## App settings
 
-Sync selected macOS preferences between machines. Quit the app before exporting or importing; running apps can overwrite changes.
+Sync Rex preferences and UI shortcuts between machines. Quit Rex before exporting or importing; it can overwrite changes while running.
 
 ```shell
-./scripts/sync-settings export --app=rex
-./scripts/sync-settings import --app=rex
+./scripts/sync-rex export
+./scripts/sync-rex import
 ```
 
-Export writes `scripts/settings/rex.plist`; commit and transfer it with the dotfiles. Import changes only keys listed in `scripts/configs/rex.conf`, including resetting keys absent on the exporting machine to their defaults. If the key list changes, export again before importing. Review snapshots before committing; custom themes are included. Lua config and fonts are managed separately. Requires macOS.
+Export writes `scripts/settings/rex.plist` and `scripts/settings/rex-shortcuts.json`; commit and transfer both with the dotfiles. Export fails if the shortcut file is missing. Import replaces the destination's UI shortcuts and changes only preference keys listed in `scripts/configs/rex.conf`, including resetting keys absent on the exporting machine to their defaults. If the key list changes, export again before importing. Shortcut JSON is validated before preferences change, but a later failure can leave a partial sync. Review snapshots before committing; custom themes are included. Lua config and fonts are managed separately. Requires macOS.
 
 ## Performance budgets
 

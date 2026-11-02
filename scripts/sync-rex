@@ -1,0 +1,45 @@
+#!/bin/bash
+set -euo pipefail
+
+script_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+snapshot="$script_dir/settings/rex-shortcuts.json"
+shortcuts="$HOME/Library/Application Support/com.superlogical.rex/Shortcuts/shortcuts.json"
+
+[[ $# -eq 1 ]] || { echo "Usage: $0 export|import" >&2; exit 2; }
+operation=$1
+case "$operation" in export|import) ;; *) echo "Usage: $0 export|import" >&2; exit 2 ;; esac
+[[ $(uname -s) == Darwin ]] || { echo "rex: macOS is required" >&2; exit 1; }
+
+if [[ "$operation" == export ]]; then
+  source=$shortcuts
+  destination=$snapshot
+  message=Exported
+else
+  source=$snapshot
+  destination=$shortcuts
+  message=Imported
+fi
+
+[[ -f "$source" ]] || { echo "rex: shortcut source not found: $source" >&2; exit 1; }
+# Copy once so validation and the eventual write use the same bytes.
+tmp=$(mktemp -d "${TMPDIR:-/tmp}/sync-rex.XXXXXXXX")
+destination_tmp=
+trap 'rm -rf "$tmp"; [[ -z "$destination_tmp" ]] || rm -f "$destination_tmp"' EXIT
+cp "$source" "$tmp/shortcuts.json"
+if ! osascript -l JavaScript -e 'function run(argv) {
+  const text = $.NSString.stringWithContentsOfFileEncodingError($(argv[0]), $.NSUTF8StringEncoding, null);
+  if (!text) throw new Error("Cannot read JSON");
+  JSON.parse(ObjC.unwrap(text));
+}' "$tmp/shortcuts.json" >/dev/null 2>&1; then
+  echo "rex: invalid shortcut JSON: $source" >&2
+  exit 1
+fi
+
+"$script_dir/sync-settings" "$operation" --app=rex
+mkdir -p "$(dirname "$destination")"
+destination_tmp=$(mktemp "${destination}.XXXXXXXX")
+cp "$tmp/shortcuts.json" "$destination_tmp"
+[[ ! -d "$destination" ]] || { echo "rex: shortcut destination is a directory: $destination" >&2; exit 1; }
+mv -f "$destination_tmp" "$destination"
+destination_tmp=
+echo "$message shortcuts to $destination"
