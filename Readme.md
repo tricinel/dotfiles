@@ -34,6 +34,17 @@ If you have sensible private information particular to your system (DON'T commit
 
 Any other git config you want to keep private, you can put in there.
 
+## App settings
+
+Sync selected macOS preferences between machines. Quit the app before exporting or importing; running apps can overwrite changes.
+
+```shell
+./scripts/sync-settings export --app=rex
+./scripts/sync-settings import --app=rex
+```
+
+Export writes `scripts/settings/rex.plist`; commit and transfer it with the dotfiles. Import changes only keys listed in `scripts/configs/rex.conf`, including resetting keys absent on the exporting machine to their defaults. If the key list changes, export again before importing. Review snapshots before committing; custom themes are included. Lua config and fonts are managed separately. Requires macOS.
+
 ## Performance budgets
 
 Use `scripts/perf-budget` to benchmark local startup time for shell and nvim config changes.

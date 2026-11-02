@@ -1,0 +1,110 @@
+#!/bin/bash
+set -euo pipefail
+
+script_dir=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)
+plistbuddy=/usr/libexec/PlistBuddy
+
+usage() {
+  echo "Usage: $0 export|import --app=NAME" >&2
+  exit 2
+}
+
+fail() {
+  echo "$app: $*" >&2
+  exit 1
+}
+
+[[ $# -eq 2 ]] || usage
+operation=$1
+case "$operation" in export|import) ;; *) usage ;; esac
+case "$2" in --app=*) app=${2#--app=} ;; *) usage ;; esac
+[[ "$app" =~ ^[a-zA-Z0-9_-]+$ ]] || usage
+
+config="$script_dir/configs/$app.conf"
+snapshot="$script_dir/settings/$app.plist"
+[[ -f "$config" ]] || fail "unknown app"
+[[ $(uname -s) == Darwin ]] || fail "macOS is required"
+
+# Config contains a domain followed by preference keys, one per line.
+domain=
+keys=()
+while IFS= read -r line || [[ -n "$line" ]]; do
+  line=${line%$'\r'}
+  case "$line" in ''|\#*) continue ;; esac
+  if [[ -z "$domain" ]]; then
+    [[ "$line" =~ ^domain=([a-zA-Z0-9][a-zA-Z0-9._-]*)$ ]] || fail "invalid domain in config"
+    domain=${BASH_REMATCH[1]}
+  else
+    [[ "$line" =~ ^[a-zA-Z0-9_][a-zA-Z0-9._-]*$ ]] || fail "invalid key in config: $line"
+    for key in "${keys[@]+${keys[@]}}"; do
+      [[ "$line" != "$key" ]] || fail "duplicate key in config: $line"
+    done
+    keys+=("$line")
+  fi
+done < "$config"
+[[ -n "$domain" && ${#keys[@]} -gt 0 ]] || fail "config must contain a domain and at least one key"
+
+tmp=$(mktemp -d "${TMPDIR:-/tmp}/sync-settings.XXXXXXXX")
+trap 'rm -rf "$tmp"' EXIT
+
+if [[ "$operation" == export ]]; then
+  defaults export "$domain" "$tmp/current.plist" || fail "could not export preferences"
+  # Copy values from the exported domain without converting plist types.
+  plutil -create xml1 "$tmp/snapshot.plist"
+  "$plistbuddy" -c "Add :domain string $domain" "$tmp/snapshot.plist"
+  "$plistbuddy" -c 'Add :keys array' "$tmp/snapshot.plist"
+  "$plistbuddy" -c 'Add :values dict' "$tmp/snapshot.plist"
+  "$plistbuddy" -c 'Add :source dict' "$tmp/snapshot.plist"
+  # PlistBuddy parses its own command string, including quotes and backslashes.
+  source_path="$tmp/current.plist"
+  source_path=${source_path//\\/\\\\}
+  source_path=${source_path//\'/\\\'}
+  source_path=${source_path//\"/\\\"}
+  "$plistbuddy" -c "Merge \"$source_path\" :source" "$tmp/snapshot.plist"
+  for key in "${keys[@]}"; do
+    "$plistbuddy" -c "Add :keys: string $key" "$tmp/snapshot.plist"
+    if "$plistbuddy" -c "Print :source:$key" "$tmp/snapshot.plist" >/dev/null 2>&1; then
+      "$plistbuddy" -c "Copy :source:$key :values:$key" "$tmp/snapshot.plist"
+    fi
+  done
+  "$plistbuddy" -c 'Delete :source' "$tmp/snapshot.plist"
+  mkdir -p "$(dirname "$snapshot")"
+  # Write in the destination directory so rename is atomic on the same filesystem.
+  destination=$(mktemp "${snapshot}.XXXXXXXX")
+  cp "$tmp/snapshot.plist" "$destination"
+  mv -f "$destination" "$snapshot"
+  echo "Exported settings to $snapshot"
+else
+  [[ -f "$snapshot" ]] || fail "snapshot not found: $snapshot"
+  plutil -lint -s "$snapshot" || fail "invalid snapshot"
+  [[ $("$plistbuddy" -c 'Print :domain' "$snapshot") == "$domain" ]] || fail "snapshot domain does not match config"
+  [[ $(plutil -type keys "$snapshot") == array && $(plutil -type values "$snapshot") == dictionary ]] || fail "invalid snapshot format"
+  count=$(plutil -extract keys raw "$snapshot")
+  [[ "$count" == "${#keys[@]}" ]] || fail "snapshot keys differ from config; re-export before importing"
+  for ((i=0; i<count; i++)); do
+    saved=$("$plistbuddy" -c "Print :keys:$i" "$snapshot")
+    [[ "$saved" == "${keys[$i]}" ]] || fail "snapshot keys differ from config; re-export before importing"
+  done
+  # Extract values after validation; import merges them without replacing unrelated keys.
+  plutil -extract values xml1 -o "$tmp/values.plist" "$snapshot"
+  cp "$snapshot" "$tmp/remaining.plist"
+  for key in "${keys[@]}"; do
+    if "$plistbuddy" -c "Print :values:$key" "$tmp/remaining.plist" >/dev/null 2>&1; then
+      "$plistbuddy" -c "Delete :values:$key" "$tmp/remaining.plist"
+    fi
+  done
+  [[ -z $(plutil -extract values raw "$tmp/remaining.plist") ]] || fail "snapshot contains unlisted values"
+  if ! defaults export "$domain" "$tmp/current.plist" 2>/dev/null; then
+    domains=", $(defaults domains), "
+    [[ "$domains" != *", $domain, "* ]] || fail "could not read existing preferences domain"
+    plutil -create xml1 "$tmp/current.plist"
+  fi
+  defaults import "$domain" "$tmp/values.plist"
+  for key in "${keys[@]}"; do
+    if ! "$plistbuddy" -c "Print :$key" "$tmp/values.plist" >/dev/null 2>&1 && \
+       "$plistbuddy" -c "Print :$key" "$tmp/current.plist" >/dev/null 2>&1; then
+      defaults delete "$domain" "$key"
+    fi
+  done
+  echo "Imported settings from $snapshot"
+fi
