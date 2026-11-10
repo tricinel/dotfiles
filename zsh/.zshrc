@@ -75,6 +75,14 @@ done
 
 unset zsh_sources
 
+# Drop missing PATH directories, preserving empty entries (current directory).
+typeset -a existing_path
+for dir in "${path[@]}"; do
+  [[ -z "$dir" || -d "$dir" ]] && existing_path+=("$dir")
+done
+path=("${existing_path[@]}")
+unset existing_path dir
+
 # starship setup
 eval "$(starship init zsh)"
 
