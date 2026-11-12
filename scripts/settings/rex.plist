@@ -670,7 +670,7 @@
 		<key>Workspace.showsActivePaneBorder</key>
 		<true/>
 		<key>Workspace.showsPaneHeaders</key>
-		<false/>
+		<true/>
 		<key>Workspace.sidebarPosition</key>
 		<string>right</string>
 		<key>Workspace.tabIconCount</key>
